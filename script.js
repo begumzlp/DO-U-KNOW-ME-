@@ -73,6 +73,55 @@ function closeLightbox() {
     }
 }
 
+// --- CV Açılır Ekran (Modal) ---
+function openCV() {
+    const cvModal = document.getElementById("cv-modal");
+    if (cvModal) {
+        cvModal.style.display = "flex";
+    }
+}
+
+function closeCV(e) {
+    const cvModal = document.getElementById("cv-modal");
+    if (cvModal) {
+        // Sadece siyah arka plana veya çarpı işaretine tıklandığında kapat
+        if (e.target.id === "cv-modal" || e.target.classList.contains("close-lightbox")) {
+            cvModal.style.display = "none";
+        }
+    }
+}
+
+// --- Gezi Albümleri Bulut Linkleri ---
+// Buraya Google Photos, Drive veya Yandex Disk'ten aldığın "Bağlantıyı Paylaş" linklerini yapıştır.
+const travelAlbums = {
+    makedonya: "", // Örn: "https://photos.app.goo.gl/..."
+    sirbistan: "",
+    karadag: "",
+    bosna: "",
+    kosova: "",
+    arnavutluk: "",
+    antalya: "", 
+    aydin: "",
+    karabuk: "",
+    bartin: "",
+    istanbul: "",
+    balikesir: "",
+    zonguldak: ""
+};
+
+// Albümü Açan Fonksiyon
+function openAlbum(countryId) {
+    const albumLink = travelAlbums[countryId];
+    
+    if (albumLink && albumLink !== "") {
+        // Link varsa yeni sekmede albümü aç
+        window.open(albumLink, '_blank');
+    } else {
+        // Link yoksa uyarı ver
+        alert("Bu gezinin fotoğrafları çok yakında yüklenecek! 📸");
+    }
+}
+
 // --- Tema Değiştirici (Dark / Pink Mode) ---
 const themeToggle = document.getElementById("themeToggle");
 const body = document.body;
