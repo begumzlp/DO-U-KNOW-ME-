@@ -1,24 +1,49 @@
 // ==========================================
-// 1. GENEL ARAYÜZ VE MENÜ FONKSİYONLARI
+// 1. GENEL ARAYÜZ, MENÜ VE ETKİLEŞİM FONKSİYONLARI
 // ==========================================
 
 function showWelcome() {
     alert("Welcome to Miriy's Universe ✨");
 }
 
-// Easter Egg: Kedicik Efekti (Global Scope)
+// Hamburger Menü Aç/Kapat
+function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    if (navLinks) {
+        navLinks.classList.toggle("active");
+    }
+}
+
+// Easter Egg: Kedicik Efekti
 window.meowEffect = function() {
     alert("Meow! 🐾 Welcome to my secret corner, fellow cat lover! (Cats & Soup vibes 🐱🥣)");
 };
 
+// Konfetili Beğeni Butonu (Appreciate Button)
+window.triggerConfetti = function() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+    
+    const likeCountEl = document.getElementById("like-count");
+    if (likeCountEl) {
+        let currentLikes = parseInt(likeCountEl.textContent);
+        likeCountEl.textContent = currentLikes + 1;
+    }
+};
+
 document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", function(e) {
-        e.preventDefault();
+        // Eğer harici bir sayfa değilse yumuşak kaydır
         const targetId = this.getAttribute("href");
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: "smooth" });
+        if (targetId.startsWith("#")) {
+            e.preventDefault();
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: "smooth" });
+            }
         }
     });
 });
@@ -119,7 +144,7 @@ function openAlbum(countryId) {
 
 
 // ==========================================
-// 3. TEK JSON DOSYASINDAN VERİ ÇEKME (data.json)
+// 3. TEK JSON DOSYASINDAN VERİ ÇEKME & KDRAMA FİLTRELEME
 // ==========================================
 
 let allWordsArray = [];
@@ -171,7 +196,7 @@ window.newRandomWord = function() {
     if (exPronEl) exPronEl.textContent = "[" + randomWord.ornekOkunus + "]";
     if (exTrEl) exTrEl.textContent = randomWord.ornekTr;
 };
-// KDrama Modalını Açma ve Kartları Listeleme
+
 window.openKDramas = function() {
     const modal = document.getElementById("kdrama-modal");
     const grid = document.getElementById("drama-grid");
@@ -196,13 +221,12 @@ window.closeKDrama = function(e) {
     }
 };
 
-// Dizileri Ekrana Basma (Tıklama Özelliği Eklendi)
 function displayDramas(list) {
     const grid = document.getElementById("drama-grid");
     if (!grid) return;
     grid.innerHTML = "";
 
-    list.forEach((drama, index) => {
+    list.forEach(drama => {
         const card = document.createElement("div");
         card.className = "card drama-card-item";
         card.style.padding = "15px";
@@ -212,14 +236,11 @@ function displayDramas(list) {
             <p style="color: var(--pink); font-size:0.9rem; font-weight: bold;">📅 ${drama.year} | 🎬 ${drama.episodes} Eps</p>
             <p style="font-size: 0.8rem; color: var(--text-soft); margin-top:5px;">👥 ${drama.cast}</p>
         `;
-        
-        // Karta tıklandığında Rich Data Modal açılır
         card.onclick = () => openDetailModal(drama);
         grid.appendChild(card);
     });
 }
 
-// 🌟 Rich Data Modal (Detay Penceresi) Açma
 function openDetailModal(drama) {
     const modal = document.getElementById("detail-modal");
     const content = document.getElementById("detail-modal-content");
@@ -227,19 +248,17 @@ function openDetailModal(drama) {
     if (!modal || !content) return;
 
     content.innerHTML = `
-        <img src="${drama.afis}" alt="${drama.title}">
+        <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:280px; object-fit:cover; border-radius: 15px; margin-bottom: 15px;">
         <h2 style="color: var(--pink); margin-bottom: 10px;">${drama.title}</h2>
         <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 10px;">Release Year: ${drama.year} | Episodes: ${drama.episodes}</p>
         <p style="color: var(--text-soft); margin-bottom: 15px;"><b>Cast:</b> ${drama.cast}</p>
         <p style="font-size: 0.95rem; line-height: 1.6; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
-            ✨ This is one of the selected masterpieces in Miriy's Universe drama archive. Enjoy the amazing storyline and unforgettable chemistry!
+            ✨ Selected masterpiece in Miriy's Universe drama archive.
         </p>
     `;
-
     modal.style.display = "flex";
 }
 
-// Detay Modalını Kapatma
 window.closeDetailModal = function(e) {
     const modal = document.getElementById("detail-modal");
     if (modal && (e.target.id === "detail-modal" || e.target.classList.contains("close-lightbox"))) {
@@ -247,7 +266,6 @@ window.closeDetailModal = function(e) {
     }
 };
 
-// Canlı Arama ve Filtreleme Fonksiyonu
 window.filterAndSortDramas = function() {
     const input = document.getElementById("dramaSearch").value.toLowerCase();
     const filtered = kdramaArray.filter(drama => 
@@ -256,10 +274,8 @@ window.filterAndSortDramas = function() {
     displayDramas(filtered);
 };
 
-// Sıralama Algoritmaları (YENİ)
 window.sortDramas = function(criteria) {
     let sorted = [...kdramaArray];
-    
     if (criteria === 'newest') {
         sorted.sort((a, b) => parseInt(b.year) - parseInt(a.year));
     } else if (criteria === 'title') {
@@ -267,14 +283,12 @@ window.sortDramas = function(criteria) {
     } else if (criteria === 'episodes') {
         sorted.sort((a, b) => parseInt(b.episodes) - parseInt(a.episodes));
     }
-
     displayDramas(sorted);
 };
 
 
-
 // ==========================================
-// 4. GİTHUB REPO WİDGET
+// 4. GİTHUB REPO WİDGET & LAST.FM WİDGET
 // ==========================================
 
 async function fetchGitHubRepos() {
@@ -311,6 +325,43 @@ async function fetchGitHubRepos() {
     }
 }
 
+async function fetchNowPlaying() {
+    const username = "YOUR_LASTFM_USERNAME"; 
+    const apiKey = "2ef3d76e73a652613b53c7c777422f25"; 
+    const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
+
+    const trackNameEl = document.getElementById("track-name");
+    const artistNameEl = document.getElementById("artist-name");
+    const trackArtEl = document.getElementById("track-art");
+
+    if (!trackNameEl) return;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("API error");
+
+        const data = await response.json();
+        const latestTrack = data.recenttracks.track[0];
+
+        if (latestTrack) {
+            trackNameEl.textContent = latestTrack.name;
+            artistNameEl.textContent = latestTrack.artist["#text"];
+            
+            if (latestTrack.image && latestTrack.image[2]["#text"]) {
+                trackArtEl.src = latestTrack.image[2]["#text"];
+            }
+
+            if (latestTrack["@attr"] && latestTrack["@attr"].nowplaying === "true") {
+                artistNameEl.textContent = "▶️ Now Playing: " + latestTrack.artist["#text"];
+            }
+        }
+    } catch (error) {
+        trackNameEl.textContent = "Brand New";
+        artistNameEl.textContent = "Xiumin (EXO)";
+        trackArtEl.src = "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=200";
+    }
+}
+
 
 // ==========================================
 // 5. SAYFA YÜKLENDİĞİNDE ÇALIŞACAKLAR
@@ -319,4 +370,6 @@ async function fetchGitHubRepos() {
 document.addEventListener("DOMContentLoaded", () => {
     loadUniverseData();
     fetchGitHubRepos();
+    fetchNowPlaying();
+    setInterval(fetchNowPlaying, 30000);
 });
