@@ -713,3 +713,31 @@ body.pink-theme .circle-btn:hover {
     color: #db2777;
     box-shadow: 0 10px 25px rgba(219, 39, 119, 0.3);
 }
+
+/* KDrama Kütüphanesi Izgarası (Grid) */
+.kdrama-container {
+    width: 90%;
+    max-width: 1200px;
+    max-height: 85vh;
+    background: var(--card);
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    padding: 30px;
+    overflow-y: auto; /* Çok dizi varsa kaydırma çubuğu çıkar */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin: auto;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    z-index: 2001;
+}
+
+/* Scrollbar'ı kütüphaneye de uyarlayalım */
+.kdrama-container::-webkit-scrollbar {
+    width: 8px;
+}
+.kdrama-container::-webkit-scrollbar-thumb {
+    background: var(--pink);
+    border-radius: 10px;
+}
