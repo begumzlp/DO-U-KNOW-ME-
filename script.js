@@ -6,6 +6,11 @@ function showWelcome() {
     alert("Welcome to Miriy's Universe ✨");
 }
 
+// Easter Egg: Kedicik Efekti
+function meowEffect() {
+    alert("Meow! 🐾 Welcome to my secret corner, fellow cat lover! (Cats & Soup vibes 🐱🥣)");
+}
+
 document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", function(e) {
         e.preventDefault();
@@ -53,6 +58,7 @@ if (themeToggle) {
         }
     });
 }
+
 
 // ==========================================
 // 2. MODAL VE AÇILIR PENCERELER
@@ -107,91 +113,44 @@ function openAlbum(countryId) {
     if (albumLink && albumLink !== "") {
         window.open(albumLink, '_blank');
     } else {
-        alert("Bu gezinin fotoğrafları çok yakında yüklenecek! 📸");
+        alert("Photos for this trip will be uploaded soon! 📸");
     }
 }
+
+
 // ==========================================
-// JSON'DAN VERİ ÇEKME VE LİSTELEME
+// 3. TEK JSON DOSYASINDAN VERİ ÇEKME (data.json)
 // ==========================================
 
 let allWordsArray = [];
-let kdramaArray = []; // Dizileri hafızada tutacağımız liste
+let kdramaArray = [];
 
 async function loadUniverseData() {
     try {
         const response = await fetch("data.json");
-        if (!response.ok) throw new Error("JSON dosyası bulunamadı");
+        if (!response.ok) throw new Error("JSON file not found");
         
         const data = await response.json();
         
-        // 1. Kelimeleri Yükle
         if (data.allWords) {
             const allCategories = data.allWords;
             for (let category in allCategories) {
                 allWordsArray = allWordsArray.concat(allCategories[category]);
             }
-            if (typeof newRandomWord === "function") newRandomWord();
+            newRandomWord();
         }
 
-        // 2. Dizileri Sadece Hafızaya Al (Ekrana basma)
         if (data.kdramaData) {
             kdramaArray = data.kdramaData;
         }
 
     } catch (error) {
-        console.error("Veri çekilemedi: ", error);
+        console.error("Data could not be loaded: ", error);
         const wordEl = document.getElementById("koreanWord");
-        if (wordEl) wordEl.textContent = "⚠️ Hata: data.json bulunamadı";
+        if (wordEl) wordEl.textContent = "⚠️ Error: data.json missing";
     }
 }
 
-// Sayfa yüklendiğinde verileri çek
-document.addEventListener("DOMContentLoaded", () => {
-    loadUniverseData();
-});
-// 🇰🇷 KDrama Kütüphanesini Açan Fonksiyon
-window.openKDramas = function() {
-    const modal = document.getElementById("kdrama-modal");
-    const container = document.getElementById("kdrama-content");
-    
-    // Eğer HTML içine modal eklenmediyse hata vermesin diye kontrol ediyoruz
-    if (!modal || !container) {
-        alert("System Error: Modal window is missing in HTML.");
-        return;
-    }
-
-    container.innerHTML = ""; // İçini temizle
-
-    if (kdramaArray.length === 0) {
-        container.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center;'>Loading dramas or data.json not found...</p>";
-    } else {
-        // Hafızadaki dizileri kartlara dönüştür
-        kdramaArray.forEach(drama => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.style.padding = "15px";
-            card.innerHTML = `
-                <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:250px; object-fit:cover; border-radius: 10px; margin-bottom: 10px;">
-                <h3 style="font-size: 1.1rem; margin-bottom:5px; color:#f5d0fe;">📺 ${drama.title}</h3>
-                <p style="color: var(--pink); font-size:0.9rem; font-weight: bold;">📅 ${drama.year} | 🎬 ${drama.episodes} Eps</p>
-                <p style="font-size: 0.8rem; color: var(--text-soft); margin-top:5px;">👥 ${drama.cast}</p>
-            `;
-            container.appendChild(card);
-        });
-    }
-    
-    modal.style.display = "flex"; // Pencereyi görünür yap
-};
-
-// ❌ KDrama Kütüphanesini Kapatan Fonksiyon
-window.closeKDrama = function(e) {
-    const modal = document.getElementById("kdrama-modal");
-    if (modal && (e.target.id === "kdrama-modal" || e.target.classList.contains("close-lightbox"))) {
-        modal.style.display = "none";
-    }
-};
-
-// Rastgele Kelime Fonksiyonu
 window.newRandomWord = function() {
     if (allWordsArray.length === 0) return;
     
@@ -213,29 +172,102 @@ window.newRandomWord = function() {
     if (exTrEl) exTrEl.textContent = randomWord.ornekTr;
 };
 
-// KDrama Render Fonksiyonu
-function renderKDramas(dramas) {
-    const dramaContainer = document.getElementById("kdrama-list");
-    if (!dramaContainer) return;
+window.openKDramas = function() {
+    const modal = document.getElementById("kdrama-modal");
+    const grid = document.getElementById("drama-grid");
+    
+    if (!modal || !grid) return;
 
-    dramaContainer.innerHTML = ""; 
+    grid.innerHTML = ""; 
 
-    dramas.forEach(drama => {
+    if (kdramaArray.length === 0) {
+        grid.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center;'>Loading dramas...</p>";
+    } else {
+        displayDramas(kdramaArray);
+    }
+    
+    modal.style.display = "flex"; 
+};
+
+window.closeKDrama = function(e) {
+    const modal = document.getElementById("kdrama-modal");
+    if (modal && (e.target.id === "kdrama-modal" || e.target.classList.contains("close-lightbox"))) {
+        modal.style.display = "none";
+    }
+};
+
+function displayDramas(list) {
+    const grid = document.getElementById("drama-grid");
+    if (!grid) return;
+    grid.innerHTML = "";
+
+    list.forEach(drama => {
         const card = document.createElement("div");
-        card.className = "card";
+        card.className = "card drama-item";
+        card.style.padding = "15px";
         card.innerHTML = `
-            <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:320px; object-fit:cover; border-radius: 15px; margin-bottom: 15px;">
-            <h3>📺 ${drama.title}</h3>
-            <p style="color: var(--pink); font-weight: bold; margin-bottom: 5px;">📅 ${drama.year} | 🎬 ${drama.episodes} Bölüm</p>
-            <p style="font-size: 0.9rem; color: var(--text-soft);">👥 <b>Oyuncular:</b> ${drama.cast}</p>
+            <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:250px; object-fit:cover; border-radius: 10px; margin-bottom: 10px;">
+            <h3 style="font-size: 1.1rem; margin-bottom:5px; color:#f5d0fe;">📺 ${drama.title}</h3>
+            <p style="color: var(--pink); font-size:0.9rem; font-weight: bold;">📅 ${drama.year} | 🎬 ${drama.episodes} Eps</p>
+            <p style="font-size: 0.8rem; color: var(--text-soft); margin-top:5px;">👥 ${drama.cast}</p>
         `;
-        dramaContainer.appendChild(card);
+        grid.appendChild(card);
     });
 }
 
+window.filterDramas = function() {
+    const input = document.getElementById("dramaSearch").value.toLowerCase();
+    const filtered = kdramaArray.filter(drama => 
+        drama.title.toLowerCase().includes(input) || drama.cast.toLowerCase().includes(input)
+    );
+    displayDramas(filtered);
+};
+
+
 // ==========================================
-// 4. SAYFA YÜKLENDİĞİNDE ÇALIŞACAKLAR
+// 4. GİTHUB REPO WİDGET
 // ==========================================
+
+async function fetchGitHubRepos() {
+    const repoContainer = document.getElementById("github-repos");
+    if (!repoContainer) return;
+
+    try {
+        const response = await fetch("https://api.github.com/users/begumzlp/repos?sort=updated&per_page=6");
+        if (!response.ok) throw new Error("GitHub API error");
+
+        const repos = await response.json();
+        repoContainer.innerHTML = "";
+
+        repos.forEach(repo => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <h3>📁 ${repo.name}</h3>
+                <p style="font-size: 0.9rem; margin: 10px 0; color: var(--text-soft);">${repo.description || "No description provided."}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <span style="font-size: 0.8rem; color: var(--pink);">⭐ ${repo.stargazers_count} | 🍴 ${repo.forks_count}</span>
+                    <a href="${repo.html_url}" target="_blank" class="contact-link" style="font-size: 0.85rem;">View Code ➔</a>
+                </div>
+            `;
+            repoContainer.appendChild(card);
+        });
+    } catch (error) {
+        repoContainer.innerHTML = `
+            <div class="card" style="text-align: center; width: 100%;">
+                <h3>Could not load GitHub projects ⚠️</h3>
+                <p style="color: var(--text-soft);">Please check your internet connection.</p>
+            </div>
+        `;
+    }
+}
+
+
+// ==========================================
+// 5. SAYFA YÜKLENDİĞİNDE ÇALIŞACAKLAR
+// ==========================================
+
 document.addEventListener("DOMContentLoaded", () => {
     loadUniverseData();
+    fetchGitHubRepos();
 });
