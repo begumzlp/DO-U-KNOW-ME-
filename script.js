@@ -145,17 +145,25 @@ async function loadUniverseData() {
     }
 }
 
+// Sayfa yüklendiğinde verileri çek
+document.addEventListener("DOMContentLoaded", () => {
+    loadUniverseData();
+});
 // 🇰🇷 KDrama Kütüphanesini Açan Fonksiyon
 window.openKDramas = function() {
     const modal = document.getElementById("kdrama-modal");
     const container = document.getElementById("kdrama-content");
     
-    if (!modal || !container) return;
+    // Eğer HTML içine modal eklenmediyse hata vermesin diye kontrol ediyoruz
+    if (!modal || !container) {
+        alert("System Error: Modal window is missing in HTML.");
+        return;
+    }
 
     container.innerHTML = ""; // İçini temizle
 
     if (kdramaArray.length === 0) {
-        container.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center;'>Diziler yükleniyor veya bulunamadı...</p>";
+        container.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center;'>Loading dramas or data.json not found...</p>";
     } else {
         // Hafızadaki dizileri kartlara dönüştür
         kdramaArray.forEach(drama => {
@@ -165,7 +173,7 @@ window.openKDramas = function() {
             card.innerHTML = `
                 <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:250px; object-fit:cover; border-radius: 10px; margin-bottom: 10px;">
                 <h3 style="font-size: 1.1rem; margin-bottom:5px; color:#f5d0fe;">📺 ${drama.title}</h3>
-                <p style="color: var(--pink); font-size:0.9rem; font-weight: bold;">📅 ${drama.year} | 🎬 ${drama.episodes} Blm</p>
+                <p style="color: var(--pink); font-size:0.9rem; font-weight: bold;">📅 ${drama.year} | 🎬 ${drama.episodes} Eps</p>
                 <p style="font-size: 0.8rem; color: var(--text-soft); margin-top:5px;">👥 ${drama.cast}</p>
             `;
             container.appendChild(card);
@@ -182,12 +190,6 @@ window.closeKDrama = function(e) {
         modal.style.display = "none";
     }
 };
-
-// Sayfa yüklendiğinde verileri çek
-document.addEventListener("DOMContentLoaded", () => {
-    loadUniverseData();
-});
-
 
 // Rastgele Kelime Fonksiyonu
 window.newRandomWord = function() {
