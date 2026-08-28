@@ -2,12 +2,10 @@
 // 1. GENEL ARAYÜZ VE MENÜ FONKSİYONLARI
 // ==========================================
 
-// Karşılama Butonu
 function showWelcome() {
     alert("Welcome to Miriy's Universe ✨");
 }
 
-// Menü linkleri için yumuşak kaydırma (Smooth Scroll)
 document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", function(e) {
         e.preventDefault();
@@ -20,7 +18,6 @@ document.querySelectorAll(".nav-links a").forEach(link => {
     });
 });
 
-// Yukarı Çık Butonu (Back to Top)
 const backToTopBtn = document.getElementById("backToTop");
 if (backToTopBtn) { 
     window.addEventListener("scroll", () => {
@@ -36,7 +33,6 @@ if (backToTopBtn) {
     });
 }
 
-// Tema Değiştirici (Dark / Pink Mode)
 const themeToggle = document.getElementById("themeToggle");
 const body = document.body;
 
@@ -58,12 +54,10 @@ if (themeToggle) {
     });
 }
 
-
 // ==========================================
 // 2. MODAL VE AÇILIR PENCERELER
 // ==========================================
 
-// Lightbox (Galeri Fotoğraf Büyütme)
 function openLightbox(src) {
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
@@ -78,7 +72,6 @@ function closeLightbox() {
     if (lightbox) lightbox.style.display = "none";
 }
 
-// CV Açılır Ekran (Modal)
 function openCV() {
     const cvModal = document.getElementById("cv-modal");
     if (cvModal) cvModal.style.display = "flex";
@@ -93,7 +86,6 @@ function closeCV(e) {
     }
 }
 
-// Gezi Albümleri Bulut Linkleri
 const travelAlbums = {
     makedonya: "", 
     sirbistan: "",
@@ -119,14 +111,12 @@ function openAlbum(countryId) {
     }
 }
 
-
 // ==========================================
-// 3. JSON VERİ ÇEKME FONKSİYONLARI (Kelime & Dizi)
+// 3. TEK JSON DOSYASINDAN (data.json) VERİ ÇEKME
 // ==========================================
 
 let allWordsArray = [];
 
-// A. data.json'dan Kelimeleri Çekme
 async function loadUniverseData() {
     try {
         const response = await fetch("data.json");
@@ -134,21 +124,40 @@ async function loadUniverseData() {
         
         const data = await response.json();
         
+        // 1. Kelimeleri Yükle
         if (data.allWords) {
             const allCategories = data.allWords;
             for (let category in allCategories) {
                 allWordsArray = allWordsArray.concat(allCategories[category]);
             }
-            newRandomWord(); // İlk kelimeyi yükle
+            newRandomWord();
         }
+
+        // 2. Dizileri Yükle
+        if (data.kdramaData) {
+            renderKDramas(data.kdramaData);
+        }
+
     } catch (error) {
         console.error("Veri çekilemedi: ", error);
+        
+        // Hata durumunda ekrana bilgi ver
         const wordEl = document.getElementById("koreanWord");
         if (wordEl) wordEl.textContent = "⚠️ Hata: data.json eksik";
+        
+        const dramaContainer = document.getElementById("kdrama-list");
+        if (dramaContainer) {
+            dramaContainer.innerHTML = `
+                <div class="card" style="text-align:center; width:100%;">
+                    <h3>Dosya Bulunamadı ⚠️</h3>
+                    <p>Lütfen data.json dosyasını doğru eklediğinden emin ol.</p>
+                </div>
+            `;
+        }
     }
 }
 
-// Global (Her yerden ulaşılabilir) Rastgele Kelime Fonksiyonu
+// Rastgele Kelime Fonksiyonu
 window.newRandomWord = function() {
     if (allWordsArray.length === 0) return;
     
@@ -170,37 +179,24 @@ window.newRandomWord = function() {
     if (exTrEl) exTrEl.textContent = randomWord.ornekTr;
 };
 
-// B. dramas.json'dan Dizi Çekme
-async function fetchKDramas() {
+// KDrama Render Fonksiyonu
+function renderKDramas(dramas) {
     const dramaContainer = document.getElementById("kdrama-list");
     if (!dramaContainer) return;
 
-    try {
-        const response = await fetch("dramas.json");
-        if (!response.ok) throw new Error("Veri çekilemedi");
-        
-        const dramas = await response.json();
-        dramaContainer.innerHTML = ""; 
+    dramaContainer.innerHTML = ""; 
 
-        dramas.forEach(drama => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = `
-                <h3>📺 ${drama.title}</h3>
-                <p>⭐ ${drama.rating}/10</p>
-                <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-soft);">${drama.review}</p>
-            `;
-            dramaContainer.appendChild(card);
-        });
-
-    } catch (error) {
-        dramaContainer.innerHTML = `
-            <div class="card" style="text-align:center; width:100%;">
-                <h3>Dosya Bulunamadı ⚠️</h3>
-                <p>Lütfen ana klasöre dramas.json dosyasını eklediğinden emin ol.</p>
-            </div>
+    dramas.forEach(drama => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:320px; object-fit:cover; border-radius: 15px; margin-bottom: 15px;">
+            <h3>📺 ${drama.title}</h3>
+            <p style="color: var(--pink); font-weight: bold; margin-bottom: 5px;">📅 ${drama.year} | 🎬 ${drama.episodes} Bölüm</p>
+            <p style="font-size: 0.9rem; color: var(--text-soft);">👥 <b>Oyuncular:</b> ${drama.cast}</p>
         `;
-    }
+        dramaContainer.appendChild(card);
+    });
 }
 
 // ==========================================
@@ -208,5 +204,4 @@ async function fetchKDramas() {
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
     loadUniverseData();
-    fetchKDramas();
 });
