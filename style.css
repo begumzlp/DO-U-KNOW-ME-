@@ -68,6 +68,7 @@ body {
     display: flex;
     gap: 25px;
     list-style: none;
+    flex-wrap: wrap;
 }
 
 .nav-links li {
@@ -187,6 +188,7 @@ body {
     padding-left: 20px;
 }
 
+/* Quick Facts */
 .stat-card {
     text-align: center;
 }
@@ -215,55 +217,7 @@ body {
     font-size: 1.2rem;
 }
 
-/* Contact */
-#contact .card {
-    text-align: center;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 40px;
-    color: #b9b4c9;
-    margin-top: 80px;
-}
-
-/* Floating stars */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-        radial-gradient(white 1px, transparent 1px),
-        radial-gradient(white 1px, transparent 1px);
-    background-size: 90px 90px;
-    background-position: 0 0, 45px 45px;
-    opacity: .12;
-    pointer-events: none;
-}
-
-/* Mobile */
-@media(max-width: 900px) {
-    .navbar {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .section h2 {
-        font-size: 2rem;
-    }
-}
-
-/* Travel Section */
+/* Travel Section & Album Tags */
 .travel-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -325,33 +279,90 @@ body::before {
     line-height: 1.6;
 }
 
-/* Pembe Tema Değişkenleri */
-body.pink-theme {
-    --bg: #fdf2f8;
-    --card: rgba(255, 255, 255, 0.6);
-    --border: rgba(236, 72, 153, 0.2);
-    --text: #4a044e;
-    --text-soft: #831843;
-    background: radial-gradient(circle at top left, #fbcfe8 30%, transparent 70%),
-                radial-gradient(circle at bottom right, #f9a8d4 30%, transparent 70%),
-                #fdf2f8;
+.album-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-body.pink-theme .logo, body.pink-theme .hero h1 {
-    background: linear-gradient(135deg, #db2777, #9d174d);
-    -webkit-background-clip: text;
+.album-btn {
+    background: rgba(192, 132, 252, 0.15);
+    border: 1px solid var(--purple);
+    color: var(--text);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
-body.pink-theme .card h3 {
-    color: #be185d;
+.album-btn:hover {
+    background: var(--purple);
+    color: white;
+    transform: translateY(-2px);
 }
 
-body.pink-theme .nav-links a {
-    color: #831843;
+/* Contact & Site Links */
+#contact .card {
+    text-align: center;
 }
 
-body.pink-theme .nav-links a:hover {
-    color: #db2777;
+.contact-link {
+    color: var(--pink);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.contact-link:hover {
+    color: var(--purple);
+    text-shadow: 0 0 10px rgba(249, 168, 212, 0.5);
+}
+
+/* CV Modal & Buttons */
+.cv-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 10px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: .4s;
+}
+
+.cv-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px #d946ef55;
+}
+
+.download-btn {
+    background: transparent;
+    border: 2px solid var(--pink);
+    color: var(--pink);
+}
+
+.download-btn:hover {
+    background: var(--pink);
+    color: #0b0815;
+}
+
+.cv-container {
+    width: 80%;
+    height: 85vh;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: auto;
+    position: relative;
+    z-index: 2001;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 
 /* Yüzen Butonlar (Theme & Back to Top) */
@@ -488,4 +499,105 @@ body.pink-theme .nav-links a:hover {
     height: 100%;
     background: linear-gradient(90deg, var(--purple), var(--pink));
     border-radius: 5px;
+}
+
+/* Pembe Tema Değişkenleri ve Özelleştirmeleri */
+body.pink-theme {
+    --bg: #fdf2f8;
+    --card: rgba(255, 255, 255, 0.6);
+    --border: rgba(236, 72, 153, 0.2);
+    --text: #4a044e;
+    --text-soft: #831843;
+    background: radial-gradient(circle at top left, #fbcfe8 30%, transparent 70%),
+                radial-gradient(circle at bottom right, #f9a8d4 30%, transparent 70%),
+                #fdf2f8;
+}
+
+body.pink-theme .logo, body.pink-theme .hero h1 {
+    background: linear-gradient(135deg, #db2777, #9d174d);
+    -webkit-background-clip: text;
+}
+
+body.pink-theme .card h3 {
+    color: #be185d;
+}
+
+body.pink-theme .nav-links a {
+    color: #831843;
+}
+
+body.pink-theme .nav-links a:hover {
+    color: #db2777;
+}
+
+body.pink-theme .contact-link {
+    color: #db2777;
+}
+
+body.pink-theme .contact-link:hover {
+    color: #be185d;
+}
+
+body.pink-theme .download-btn {
+    border-color: #db2777;
+    color: #db2777;
+}
+
+body.pink-theme .download-btn:hover {
+    background: #db2777;
+    color: white;
+}
+
+body.pink-theme .album-btn {
+    background: rgba(219, 39, 119, 0.1);
+    border-color: #db2777;
+    color: #831843;
+}
+
+body.pink-theme .album-btn:hover {
+    background: #db2777;
+    color: white;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #b9b4c9;
+    margin-top: 80px;
+}
+
+/* Floating stars */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
+    background-size: 90px 90px;
+    background-position: 0 0, 45px 45px;
+    opacity: .12;
+    pointer-events: none;
+}
+
+/* Mobile */
+@media(max-width: 900px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .section h2 {
+        font-size: 2rem;
+    }
 }
