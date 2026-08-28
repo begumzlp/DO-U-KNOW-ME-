@@ -55,3 +55,54 @@ if (wordElement && meaningElement) {
     wordElement.textContent = randomWord.korean;
     meaningElement.textContent = randomWord.meaning;
 }
+// --- Lightbox (Galeri Fotoğraf Büyütme) ---
+function openLightbox(src) {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    lightbox.style.display = "flex";
+    lightboxImg.src = src;
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
+
+// --- Tema Değiştirici (Dark / Pink Mode) ---
+const themeToggle = document.getElementById("themeToggle");
+const body = document.body;
+
+// Kayıtlı temayı kontrol et
+if (localStorage.getItem("theme") === "pink") {
+    body.classList.add("pink-theme");
+    themeToggle.textContent = "🌌";
+}
+
+themeToggle.addEventListener("click", () => {
+    body.classList.toggle("pink-theme");
+    
+    if (body.classList.contains("pink-theme")) {
+        localStorage.setItem("theme", "pink");
+        themeToggle.textContent = "🌌"; // Karanlık temaya dön simgesi
+    } else {
+        localStorage.setItem("theme", "dark");
+        themeToggle.textContent = "🌸"; // Pembe temaya dön simgesi
+    }
+});
+
+// --- Yukarı Çık Butonu (Back to Top) ---
+const backToTopBtn = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        backToTopBtn.classList.add("visible");
+    } else {
+        backToTopBtn.classList.remove("visible");
+    }
+});
+
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
