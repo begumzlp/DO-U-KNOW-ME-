@@ -1,37 +1,26 @@
+// Karşılama Butonu
 function showWelcome() {
     alert("Welcome to Miriy's Universe ✨");
 }
 
+// Menü linkleri için yumuşak kaydırma (Smooth Scroll)
 document.querySelectorAll(".nav-links a").forEach(link => {
-
     link.addEventListener("click", function(e) {
-
         e.preventDefault();
-
+        
         const targetId = this.getAttribute("href");
-
-        document.querySelector(targetId).scrollIntoView({
-            behavior: "smooth"
-        });
-
+        const targetElement = document.querySelector(targetId);
+        
+        // Eğer hedef bölüm sayfada varsa oraya kaydır
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
     });
-
 });
 
-const cards = document.querySelectorAll(".card");
-
-cards.forEach(card => {
-
-    card.addEventListener("mouseenter", () => {
-        card.style.transform = "translateY(-10px)";
-    });
-
-    card.addEventListener("mouseleave", () => {
-        card.style.transform = "translateY(0)";
-    });
-
-});
-
+// Korece Günün Kelimesi
 const words = [
     {
         korean: "사랑",
@@ -55,11 +44,14 @@ const words = [
     }
 ];
 
-const randomWord =
-words[Math.floor(Math.random() * words.length)];
+// Rastgele kelime seçimi
+const randomWord = words[Math.floor(Math.random() * words.length)];
 
-document.getElementById("koreanWord").textContent =
-randomWord.korean;
+// HTML'deki elementleri bul ve metinleri değiştir
+const wordElement = document.getElementById("koreanWord");
+const meaningElement = document.getElementById("koreanMeaning");
 
-document.getElementById("koreanMeaning").textContent =
-randomWord.meaning;
+if (wordElement && meaningElement) {
+    wordElement.textContent = randomWord.korean;
+    meaningElement.textContent = randomWord.meaning;
+}
