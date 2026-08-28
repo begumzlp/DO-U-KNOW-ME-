@@ -10,6 +10,9 @@
 </head>
 <body>
 
+<!-- Easter Egg: Sürpriz Kedicik -->
+<div id="surprise-cat" onclick="meowEffect()" title="Meow! 🐾">🐱</div>
+
 <header>
     <nav class="navbar">
         <div class="logo">
@@ -21,7 +24,6 @@
             <li><a href="#cv">CV</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#volunteering">Volunteering</a></li>
-            <li><a href="#my-circle">My Circle</a></li>
             <li><a href="#travel">Travel</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#languages">Languages</a></li>
@@ -55,14 +57,62 @@
     </div>
 </section>
 
+<section id="my-circle" class="section">
+    <h2>💫 Stars of My Universe</h2>
+    <p style="text-align: center; color: var(--text-soft); margin-bottom: 30px;">
+        The people who make my world brighter.
+    </p>
+    <div class="circle-tags">
+        <div class="circle-btn">❤️ Annem</div>
+        <div class="circle-btn">💙 Babam</div>
+        <div class="circle-btn">👯‍♀️ Ablam</div>
+        <div class="circle-btn">👦🏻 Kayra</div>
+        <div class="circle-btn">🌸 Beril</div>
+        <div class="circle-btn">🌷 Hilal</div>
+        <div class="circle-btn">🌻 Nisa</div>
+        <div class="circle-btn">🏡 Aybik</div>
+        <div class="circle-btn">🦋 Elif</div>
+    </div>
+</section>
+
 <section id="cv" class="section">
     <h2>📄 Curriculum Vitae</h2>
     <div class="card" style="text-align: center;">
         <h3>My Resume</h3>
-        <p>Aşağıdaki butona tıklayarak özgeçmişimi görüntüleyebilir veya indirebilirsiniz.</p>
+        <p>You can view or download my resume using the buttons below.</p>
         <br>
         <button onclick="openCV()" class="cv-btn">View CV 👁️</button>
         <a href="cv.pdf" download class="cv-btn download-btn">Download CV ⬇️</a>
+    </div>
+</section>
+
+<!-- Yeni Özellik: Teknik Yetenek Barları -->
+<section id="skills" class="section">
+    <h2>⚡ Technical Skills</h2>
+    <p style="text-align: center; color: var(--text-soft); margin-bottom: 40px;">
+        My core engineering and development proficiencies.
+    </p>
+    <div class="card" style="max-width: 800px; margin: 0 auto;">
+        <div class="skill-box">
+            <span class="skill-title">Embedded Systems & C/C++</span>
+            <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 85%;"></div></div>
+        </div>
+        <div class="skill-box">
+            <span class="skill-title">Automotive Software Testing & CAN Bus</span>
+            <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 80%;"></div></div>
+        </div>
+        <div class="skill-box">
+            <span class="skill-title">Frontend Web Dev (HTML/CSS/JS)</span>
+            <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 90%;"></div></div>
+        </div>
+        <div class="skill-box">
+            <span class="skill-title">Python & Machine Learning Concepts</span>
+            <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 75%;"></div></div>
+        </div>
+        <div class="skill-box">
+            <span class="skill-title">English (B1) & Korean (Learning)</span>
+            <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 70%;"></div></div>
+        </div>
     </div>
 </section>
 
@@ -94,36 +144,12 @@
 
 <section id="projects" class="section">
     <h2>💻 My Projects & Experience</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>🚗 Automotive Software Intern</h3>
-            <span>August 2026</span>
-            <p>Embedded systems, CAN bus communication, and electronic I/O systems testing.</p>
-        </div>
-        <div class="card">
-            <h3>🏢 Teknopark Software Intern</h3>
-            <span>Summer 2025</span>
-            <p>Gained practical industry experience and contributed to software development projects during my summer internship.</p>
-        </div>
-        <div class="card">
-            <h3>♻️ Recycling Project</h3>
-            <p>A software project focused on environmental sustainability and recycling management.</p>
-        </div>
-        <div class="card">
-            <h3>📚 Library Database</h3>
-            <p>A comprehensive database management system designed for tracking and managing library operations.</p>
-        </div>
-        <div class="card">
-            <h3>🚜 Animal Farm Game</h3>
-            <p>An interactive and fun animal farm simulation game developed to practice programming logic.</p>
-        </div>
-        <div class="card">
-            <h3>🌐 Web Development Projects</h3>
-            <p>Various responsive frontend projects including Korean Miriy, Mirae Accessories, and a DIY Yarn Craft Website.</p>
-        </div>
-        <div class="card">
-            <h3>🌟 Sosyalfest Project</h3>
-            <p>Project development, organization, and community engagement for the Sosyalfest 2026 event.</p>
+    <p style="text-align: center; color: var(--text-soft); margin-bottom: 30px;">
+        Live repositories fetched directly from my GitHub profile.
+    </p>
+    <div class="grid" id="github-repos">
+        <div class="card" style="text-align: center; width: 100%;">
+            <p>Loading GitHub repositories... ⏳</p>
         </div>
     </div>
 </section>
@@ -143,30 +169,28 @@
         </div>
     </div>
 </section>
-<section id="my-circle" class="section">
-    <h2>💫 Stars of My Universe</h2>
-    <p style="text-align: center; color: var(--text-soft); margin-bottom: 30px;">
-        Hayatımı güzelleştiren en değerli insanlar.
-    </p>
-    
-    <div class="circle-tags">
-        <div class="circle-btn">❤️ Mommy</div>
-        <div class="circle-btn">💙 Daddy</div>
-        <div class="circle-btn">👯‍♀️ Sister</div>
-        <div class="circle-btn">👦🏻 Kayra</div>
-        <div class="circle-btn">🌸 Beril</div>
-        <div class="circle-btn">🌷 Hilal</div>
-        <div class="circle-btn">🌻 Nisa</div>
-        <div class="circle-btn">🏡 Aybik</div>
-        <div class="circle-btn">🦋 Elif</div>
-    </div>
-</section>
-    
+
 <section id="travel" class="section">
     <h2>✈️ Travel Diary</h2>
+    
+    <!-- Yeni Özellik: İnteraktif Harita Modülü -->
+    <div class="card" style="max-width: 900px; margin: 0 auto 40px auto; text-align: center;">
+        <h3>🗺️ Interactive Exploration Map</h3>
+        <p style="color: var(--text-soft); margin-bottom: 20px; font-size: 0.95rem;">Click a region tag below to instantly jump to its photo album!</p>
+        <div class="interactive-map-tags">
+            <button class="map-tag-btn" onclick="openAlbum('makedonya')">🇲🇰 North Macedonia</button>
+            <button class="map-tag-btn" onclick="openAlbum('sirbistan')">🇷🇸 Serbia</button>
+            <button class="map-tag-btn" onclick="openAlbum('karadag')">🇲🇪 Montenegro</button>
+            <button class="map-tag-btn" onclick="openAlbum('bosna')">🇧🇦 Bosnia</button>
+            <button class="map-tag-btn" onclick="openAlbum('kosova')">🇽🇰 Kosovo</button>
+            <button class="map-tag-btn" onclick="openAlbum('arnavutluk')">🇦🇱 Albania</button>
+            <button class="map-tag-btn" onclick="openAlbum('antalya')">📍 Antalya</button>
+            <button class="map-tag-btn" onclick="openAlbum('istanbul')">📍 Istanbul</button>
+            <button class="map-tag-btn" onclick="openAlbum('karabuk')">📍 Karabük</button>
+        </div>
+    </div>
+
     <div class="travel-grid">
-        
-        <!-- Balkan Turu Kartı -->
         <div class="travel-card">
             <div class="travel-img-container">
                 <img src="https://images.unsplash.com/photo-1595843491334-a0397554f7a7?w=600" alt="Balkan Tour">
@@ -174,7 +198,7 @@
             <div class="travel-content">
                 <h3>🌍 Balkan Tour</h3>
                 <span>August 2026</span>
-                <p>Multi-country adventure and unforgettable memories with my bff! <b>Fotoğrafları görmek için bir ülkeye tıkla:</b></p>
+                <p>Multi-country adventure and unforgettable memories with my sister MRY! <b>Click a country to view photos:</b></p>
                 <div class="album-tags">
                     <button class="album-btn" onclick="openAlbum('makedonya')">🇲🇰 Makedonya</button>
                     <button class="album-btn" onclick="openAlbum('sirbistan')">🇷🇸 Sırbistan</button>
@@ -186,7 +210,6 @@
             </div>
         </div>
 
-        <!-- Türkiye Kartı -->
         <div class="travel-card">
             <div class="travel-img-container">
                 <img src="https://images.unsplash.com/photo-1581452902341-35b91b93f1fa?w=600" alt="Türkiye Seyahatleri">
@@ -206,7 +229,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 
@@ -227,18 +249,14 @@
         <h3 id="koreanWord">단어</h3>
         <p id="koreanPronunciation" class="pronunciation"></p>
         <p id="koreanMeaning" class="meaning"></p>
-        
         <hr class="word-divider">
-        
         <p id="koreanExample" class="example"></p>
         <p id="koreanExamplePronunciation" class="pronunciation"></p>
         <p id="koreanExampleTr" class="meaning-soft"></p>
-        
-        <button onclick="newRandomWord()" class="refresh-btn">🔄 Yeni Kelime</button>
+        <button onclick="newRandomWord()" class="refresh-btn">🔄 New Word</button>
     </div>
 
     <br><br>
-
     <div class="grid">
         <div class="card">
             <h3>🇬🇧 English</h3>
@@ -257,25 +275,20 @@
     <p style="text-align: center; color: var(--text-soft); margin-bottom: 30px;">
         Select a category to view the library.
     </p>
-    
     <div class="grid">
-        <!-- Tıklanabilir KDrama Kategorisi -->
         <div class="card" style="text-align: center; cursor: pointer;" onclick="openKDramas()">
             <h3 style="font-size: 3rem; margin-bottom: 10px;">🇰🇷</h3>
             <h3 style="color: var(--pink);">Korean Dramas</h3>
             <p>100+ Drama Archive</p>
         </div>
-
         <div class="card" style="text-align: center; cursor: pointer;" onclick="alert('Coming Soon!')">
             <h3 style="font-size: 3rem; margin-bottom: 10px;">🇨🇳</h3>
             <h3>Chinese Dramas</h3>
         </div>
-
         <div class="card" style="text-align: center; cursor: pointer;" onclick="alert('Coming Soon!')">
             <h3 style="font-size: 3rem; margin-bottom: 10px;">🇯🇵</h3>
             <h3>Japanese Dramas</h3>
         </div>
-
         <div class="card" style="text-align: center; cursor: pointer;" onclick="alert('Coming Soon!')">
             <h3 style="font-size: 3rem; margin-bottom: 10px;">🇹🇭</h3>
             <h3>Thai Dramas</h3>
@@ -292,19 +305,21 @@
         <div class="card"><h3>🎬 Drama Marathons</h3><p>Korean, Chinese, Japanese and Thai dramas.</p></div> 
     </div>
 </section>
+
 <section id="music" class="section">
-    <h2>🎧 Music Corner</h2>
+    <h2>🎧 Music Corner & Fandom</h2>
     <div class="grid">
         <div class="card"><h3>🎵 K-Pop</h3></div>
         <div class="card"><h3>🎹 OSTs</h3></div>
-        <div class="card"><h3>☁️ Lo-fi</h3></div>
+        <div class="card">
+            <h3>🎤 Crush Group</h3>
+            <p>Favorite vocals, best scenes, and unforgettable tracks.</p>
+        </div>
     </div>
     
     <br><br>
-    
     <h2>🎧 Currently Listening</h2>
     <div class="music-player">
-        <!-- Kapak fotoğrafını veya kendi resmini ekleyebilirsin -->
         <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=200" alt="Brand New" class="album-cover">
         <div class="music-info">
             <h3>Brand New</h3>
@@ -313,7 +328,6 @@
         </div>
     </div>
 </section>
-
 
 <section id="dreams" class="section">
     <h2>🌟 Dreams & Goals</h2>
@@ -357,35 +371,33 @@
             <p>🌸 <a href="https://begumzlp.github.io/hilalzeynep-website/#" target="_blank" class="contact-link">DIY Craft Website</a></p>
         </div>
     </div>
-</section>       
+</section>        
 
-<!-- Floating Buttons -->
-<button id="themeToggle" class="floating-btn theme-btn" title="Temayı Değiştir">🌸</button>
-<button id="backToTop" class="floating-btn top-btn" title="Yukarı Çık">⬆️</button>
+<button id="themeToggle" class="floating-btn theme-btn" title="Change Theme">🌸</button>
+<button id="backToTop" class="floating-btn top-btn" title="Back to Top">⬆️</button>
 
-<!-- Lightbox Modal -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="close-lightbox">&times;</span>
     <img id="lightbox-img" src="" alt="Expanded Image">
 </div>
 
-<!-- CV Modal -->
 <div id="cv-modal" class="lightbox" onclick="closeCV(event)">
     <span class="close-lightbox" onclick="closeCV(event)">&times;</span>
     <div class="cv-container">
-        <!-- cv.pdf dosyanı projenin ana klasörüne eklemelisin -->
         <iframe src="cv.pdf" width="100%" height="100%" frameborder="0"></iframe>
     </div>
-    
 </div>
-<!-- KDrama Kütüphanesi Modal -->
+
 <div id="kdrama-modal" class="lightbox" onclick="closeKDrama(event)">
     <span class="close-lightbox" onclick="closeKDrama(event)">&times;</span>
     <div class="kdrama-container" id="kdrama-content">
-        <!-- Diziler JS ile buraya yüklenecek -->
+        <div style="grid-column: 1 / -1; margin-bottom: 10px; text-align: center;">
+            <input type="text" id="dramaSearch" placeholder="🔍 Search dramas by title or cast..." onkeyup="filterDramas()" style="width: 100%; max-width: 400px; padding: 12px 20px; border-radius: 25px; border: 1px solid var(--border); background: var(--card); color: var(--text); outline: none; font-family: 'Poppins', sans-serif;">
+        </div>
+        <div id="drama-grid" style="display: contents;"></div>
     </div>
 </div>
-    
+
 <footer>
     <p>✨ Miriy's Universe © 2026</p>
 </footer>
