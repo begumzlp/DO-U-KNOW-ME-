@@ -254,21 +254,32 @@
 
 <section id="dramas" class="section">
     <h2>🎬 Drama Universe</h2>
-    <h2>🎬 My Drama List</h2>
-    <div class="grid" id="kdrama-list">
-        <!-- Diziler dramas.json'dan buraya yüklenecek -->
-        <div class="card" style="text-align: center; width: 100%;">
-            <p>Diziler yükleniyor... ⏳</p>
-        </div>
-    </div>
-    <br>
+    <p style="text-align: center; color: var(--text-soft); margin-bottom: 30px;">
+        Kütüphaneyi görüntülemek için bir kategori seçin.
+    </p>
+    
     <div class="grid">
-        <div class="card"><h3>🇰🇷 Korean Dramas</h3></div>
-        <div class="card"><h3>🇨🇳 Chinese Dramas</h3></div>
-        <div class="card"><h3>🇯🇵 Japanese Dramas</h3></div>
-        <div class="card"><h3>🇹🇭 Thai Dramas</h3></div>
-        <div class="card"><h3>🏥 Medical Dramas</h3></div>
-        <div class="card"><h3>🎥 Movies</h3></div>
+        <!-- Tıklanabilir KDrama Kategorisi -->
+        <div class="card" style="text-align: center; cursor: pointer;" onclick="openKDramas()">
+            <h3 style="font-size: 3rem; margin-bottom: 10px;">🇰🇷</h3>
+            <h3 style="color: var(--pink);">Korean Dramas</h3>
+            <p>100+ Dizilik Arşivim</p>
+        </div>
+
+        <div class="card" style="text-align: center; cursor: pointer;" onclick="alert('Yakında Eklenecek!')">
+            <h3 style="font-size: 3rem; margin-bottom: 10px;">🇨🇳</h3>
+            <h3>Chinese Dramas</h3>
+        </div>
+
+        <div class="card" style="text-align: center; cursor: pointer;" onclick="alert('Yakında Eklenecek!')">
+            <h3 style="font-size: 3rem; margin-bottom: 10px;">🇯🇵</h3>
+            <h3>Japanese Dramas</h3>
+        </div>
+
+        <div class="card" style="text-align: center; cursor: pointer;" onclick="alert('Yakında Eklenecek!')">
+            <h3 style="font-size: 3rem; margin-bottom: 10px;">🇹🇭</h3>
+            <h3>Thai Dramas</h3>
+        </div>
     </div>
 </section>
 
@@ -365,8 +376,16 @@
         <!-- cv.pdf dosyanı projenin ana klasörüne eklemelisin -->
         <iframe src="cv.pdf" width="100%" height="100%" frameborder="0"></iframe>
     </div>
+    
 </div>
-
+<!-- KDrama Kütüphanesi Modal -->
+<div id="kdrama-modal" class="lightbox" onclick="closeKDrama(event)">
+    <span class="close-lightbox" onclick="closeKDrama(event)">&times;</span>
+    <div class="kdrama-container" id="kdrama-content">
+        <!-- Diziler JS ile buraya yüklenecek -->
+    </div>
+</div>
+    
 <footer>
     <p>✨ Miriy's Universe © 2026</p>
 </footer>
