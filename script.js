@@ -1,3 +1,7 @@
+// ==========================================
+// 1. GENEL ARAYÜZ VE MENÜ FONKSİYONLARI
+// ==========================================
+
 // Karşılama Butonu
 function showWelcome() {
     alert("Welcome to Miriy's Universe ✨");
@@ -7,20 +11,59 @@ function showWelcome() {
 document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", function(e) {
         e.preventDefault();
-        
         const targetId = this.getAttribute("href");
         const targetElement = document.querySelector(targetId);
         
-        // Eğer hedef bölüm sayfada varsa oraya kaydır
         if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: "smooth"
-            });
+            targetElement.scrollIntoView({ behavior: "smooth" });
         }
     });
 });
 
-// --- Lightbox (Galeri Fotoğraf Büyütme) ---
+// Yukarı Çık Butonu (Back to Top)
+const backToTopBtn = document.getElementById("backToTop");
+if (backToTopBtn) { 
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add("visible");
+        } else {
+            backToTopBtn.classList.remove("visible");
+        }
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+}
+
+// Tema Değiştirici (Dark / Pink Mode)
+const themeToggle = document.getElementById("themeToggle");
+const body = document.body;
+
+if (themeToggle) { 
+    if (localStorage.getItem("theme") === "pink") {
+        body.classList.add("pink-theme");
+        themeToggle.textContent = "🌌";
+    }
+
+    themeToggle.addEventListener("click", () => {
+        body.classList.toggle("pink-theme");
+        if (body.classList.contains("pink-theme")) {
+            localStorage.setItem("theme", "pink");
+            themeToggle.textContent = "🌌"; 
+        } else {
+            localStorage.setItem("theme", "dark");
+            themeToggle.textContent = "🌸"; 
+        }
+    });
+}
+
+
+// ==========================================
+// 2. MODAL VE AÇILIR PENCERELER
+// ==========================================
+
+// Lightbox (Galeri Fotoğraf Büyütme)
 function openLightbox(src) {
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
@@ -32,33 +75,27 @@ function openLightbox(src) {
 
 function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
-    if (lightbox) {
-        lightbox.style.display = "none";
-    }
+    if (lightbox) lightbox.style.display = "none";
 }
 
-// --- CV Açılır Ekran (Modal) ---
+// CV Açılır Ekran (Modal)
 function openCV() {
     const cvModal = document.getElementById("cv-modal");
-    if (cvModal) {
-        cvModal.style.display = "flex";
-    }
+    if (cvModal) cvModal.style.display = "flex";
 }
 
 function closeCV(e) {
     const cvModal = document.getElementById("cv-modal");
     if (cvModal) {
-        // Sadece siyah arka plana veya çarpı işaretine tıklandığında kapat
         if (e.target.id === "cv-modal" || e.target.classList.contains("close-lightbox")) {
             cvModal.style.display = "none";
         }
     }
 }
 
-// --- Gezi Albümleri Bulut Linkleri ---
-// Buraya Google Photos, Drive veya Yandex Disk'ten aldığın "Bağlantıyı Paylaş" linklerini yapıştır.
+// Gezi Albümleri Bulut Linkleri
 const travelAlbums = {
-    makedonya: "", // Örn: "https://photos.app.goo.gl/..."
+    makedonya: "", 
     sirbistan: "",
     karadag: "",
     bosna: "",
@@ -73,77 +110,77 @@ const travelAlbums = {
     zonguldak: ""
 };
 
-// Albümü Açan Fonksiyon
 function openAlbum(countryId) {
     const albumLink = travelAlbums[countryId];
-    
     if (albumLink && albumLink !== "") {
-        // Link varsa yeni sekmede albümü aç
         window.open(albumLink, '_blank');
     } else {
-        // Link yoksa uyarı ver
         alert("Bu gezinin fotoğrafları çok yakında yüklenecek! 📸");
     }
 }
 
-// --- Tema Değiştirici (Dark / Pink Mode) ---
-const themeToggle = document.getElementById("themeToggle");
-const body = document.body;
 
-if (themeToggle) { // Hata almamak için element kontrolü
-    // Kayıtlı temayı kontrol et
-    if (localStorage.getItem("theme") === "pink") {
-        body.classList.add("pink-theme");
-        themeToggle.textContent = "🌌";
-    }
+// ==========================================
+// 3. JSON VERİ ÇEKME FONKSİYONLARI (Kelime & Dizi)
+// ==========================================
 
-    themeToggle.addEventListener("click", () => {
-        body.classList.toggle("pink-theme");
+let allWordsArray = [];
+
+// A. data.json'dan Kelimeleri Çekme
+async function loadUniverseData() {
+    try {
+        const response = await fetch("data.json");
+        if (!response.ok) throw new Error("JSON dosyası bulunamadı");
         
-        if (body.classList.contains("pink-theme")) {
-            localStorage.setItem("theme", "pink");
-            themeToggle.textContent = "🌌"; 
-        } else {
-            localStorage.setItem("theme", "dark");
-            themeToggle.textContent = "🌸"; 
+        const data = await response.json();
+        
+        if (data.allWords) {
+            const allCategories = data.allWords;
+            for (let category in allCategories) {
+                allWordsArray = allWordsArray.concat(allCategories[category]);
+            }
+            newRandomWord(); // İlk kelimeyi yükle
         }
-    });
+    } catch (error) {
+        console.error("Veri çekilemedi: ", error);
+        const wordEl = document.getElementById("koreanWord");
+        if (wordEl) wordEl.textContent = "⚠️ Hata: data.json eksik";
+    }
 }
 
-// --- Yukarı Çık Butonu (Back to Top) ---
-const backToTopBtn = document.getElementById("backToTop");
+// Global (Her yerden ulaşılabilir) Rastgele Kelime Fonksiyonu
+window.newRandomWord = function() {
+    if (allWordsArray.length === 0) return;
+    
+    const randomWord = allWordsArray[Math.floor(Math.random() * allWordsArray.length)];
+    
+    const wordEl = document.getElementById("koreanWord");
+    const pronEl = document.getElementById("koreanPronunciation");
+    const meanEl = document.getElementById("koreanMeaning");
+    const exEl = document.getElementById("koreanExample");
+    const exPronEl = document.getElementById("koreanExamplePronunciation");
+    const exTrEl = document.getElementById("koreanExampleTr");
 
-if (backToTopBtn) { // Hata almamak için element kontrolü
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add("visible");
-        } else {
-            backToTopBtn.classList.remove("visible");
-        }
-    });
+    if (wordEl) wordEl.textContent = randomWord.korece;
+    if (pronEl) pronEl.textContent = "[" + randomWord.okunus + "]";
+    if (meanEl) meanEl.textContent = randomWord.turkce;
+    
+    if (exEl) exEl.textContent = randomWord.ornek;
+    if (exPronEl) exPronEl.textContent = "[" + randomWord.ornekOkunus + "]";
+    if (exTrEl) exTrEl.textContent = randomWord.ornekTr;
+};
 
-    backToTopBtn.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
-}
-// --- Yerel JSON Dosyasından Dizi Verilerini Çekme ---
+// B. dramas.json'dan Dizi Çekme
 async function fetchKDramas() {
     const dramaContainer = document.getElementById("kdrama-list");
     if (!dramaContainer) return;
 
     try {
-        // Aynı klasördeki dramas.json dosyasını okur
         const response = await fetch("dramas.json");
-        
-        if (!response.ok) {
-            throw new Error("Veri çekilemedi");
-        }
+        if (!response.ok) throw new Error("Veri çekilemedi");
         
         const dramas = await response.json();
-        dramaContainer.innerHTML = ""; // Yükleniyor yazısını temizle
+        dramaContainer.innerHTML = ""; 
 
         dramas.forEach(drama => {
             const card = document.createElement("div");
@@ -166,52 +203,10 @@ async function fetchKDramas() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", fetchKDramas);
-
-let allWordsArray = [];
-
-// data.json dosyasından tüm verileri çekme
-async function loadUniverseData() {
-    try {
-        const response = await fetch("data.json");
-        if (!response.ok) throw new Error("JSON dosyası bulunamadı");
-        
-        const data = await response.json();
-        
-        // JSON içindeki tüm kategorileri tek bir listede birleştir
-        const allCategories = data.allWords;
-        for (let category in allCategories) {
-            allWordsArray = allWordsArray.concat(allCategories[category]);
-        }
-        
-        // Veriler yüklenir yüklenmez ilk kelimeyi ekrana getir
-        newRandomWord();
-
-        // NOT: İleride kdramaData, kpopData vs. için olan kodları da bu bloğa ekleyeceğiz!
-
-    } catch (error) {
-        console.error("Veri çekilemedi: ", error);
-        document.getElementById("koreanWord").textContent = "⚠️ Hata";
-        document.getElementById("koreanMeaning").textContent = "data.json dosyası bulunamadı!";
-    }
-}
-
-// Rastgele kelime seçip HTML'e yazdırma fonksiyonu
-function newRandomWord() {
-    if (allWordsArray.length === 0) return;
-    
-    // Yüzlerce kelimenin içinden rastgele birini seç
-    const randomWord = allWordsArray[Math.floor(Math.random() * allWordsArray.length)];
-    
-    // HTML'deki yerlerine yerleştir
-    document.getElementById("koreanWord").textContent = randomWord.korece;
-    document.getElementById("koreanPronunciation").textContent = "[" + randomWord.okunus + "]";
-    document.getElementById("koreanMeaning").textContent = randomWord.turkce;
-    
-    document.getElementById("koreanExample").textContent = randomWord.ornek;
-    document.getElementById("koreanExamplePronunciation").textContent = "[" + randomWord.ornekOkunus + "]";
-    document.getElementById("koreanExampleTr").textContent = randomWord.ornekTr;
-}
-
-// Sayfa açıldığında verileri yükle
-document.addEventListener("DOMContentLoaded", loadUniverseData);
+// ==========================================
+// 4. SAYFA YÜKLENDİĞİNDE ÇALIŞACAKLAR
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    loadUniverseData();
+    fetchKDramas();
+});
