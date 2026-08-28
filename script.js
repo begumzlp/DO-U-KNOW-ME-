@@ -110,12 +110,12 @@ function openAlbum(countryId) {
         alert("Bu gezinin fotoğrafları çok yakında yüklenecek! 📸");
     }
 }
-
 // ==========================================
-// 3. TEK JSON DOSYASINDAN (data.json) VERİ ÇEKME
+// JSON'DAN VERİ ÇEKME VE LİSTELEME
 // ==========================================
 
 let allWordsArray = [];
+let kdramaArray = []; // Dizileri hafızada tutacağımız liste
 
 async function loadUniverseData() {
     try {
@@ -130,32 +130,64 @@ async function loadUniverseData() {
             for (let category in allCategories) {
                 allWordsArray = allWordsArray.concat(allCategories[category]);
             }
-            newRandomWord();
+            if (typeof newRandomWord === "function") newRandomWord();
         }
 
-        // 2. Dizileri Yükle
+        // 2. Dizileri Sadece Hafızaya Al (Ekrana basma)
         if (data.kdramaData) {
-            renderKDramas(data.kdramaData);
+            kdramaArray = data.kdramaData;
         }
 
     } catch (error) {
         console.error("Veri çekilemedi: ", error);
-        
-        // Hata durumunda ekrana bilgi ver
         const wordEl = document.getElementById("koreanWord");
-        if (wordEl) wordEl.textContent = "⚠️ Hata: data.json eksik";
-        
-        const dramaContainer = document.getElementById("kdrama-list");
-        if (dramaContainer) {
-            dramaContainer.innerHTML = `
-                <div class="card" style="text-align:center; width:100%;">
-                    <h3>Dosya Bulunamadı ⚠️</h3>
-                    <p>Lütfen data.json dosyasını doğru eklediğinden emin ol.</p>
-                </div>
-            `;
-        }
+        if (wordEl) wordEl.textContent = "⚠️ Hata: data.json bulunamadı";
     }
 }
+
+// 🇰🇷 KDrama Kütüphanesini Açan Fonksiyon
+window.openKDramas = function() {
+    const modal = document.getElementById("kdrama-modal");
+    const container = document.getElementById("kdrama-content");
+    
+    if (!modal || !container) return;
+
+    container.innerHTML = ""; // İçini temizle
+
+    if (kdramaArray.length === 0) {
+        container.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center;'>Diziler yükleniyor veya bulunamadı...</p>";
+    } else {
+        // Hafızadaki dizileri kartlara dönüştür
+        kdramaArray.forEach(drama => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.style.padding = "15px";
+            card.innerHTML = `
+                <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:250px; object-fit:cover; border-radius: 10px; margin-bottom: 10px;">
+                <h3 style="font-size: 1.1rem; margin-bottom:5px; color:#f5d0fe;">📺 ${drama.title}</h3>
+                <p style="color: var(--pink); font-size:0.9rem; font-weight: bold;">📅 ${drama.year} | 🎬 ${drama.episodes} Blm</p>
+                <p style="font-size: 0.8rem; color: var(--text-soft); margin-top:5px;">👥 ${drama.cast}</p>
+            `;
+            container.appendChild(card);
+        });
+    }
+    
+    modal.style.display = "flex"; // Pencereyi görünür yap
+};
+
+// ❌ KDrama Kütüphanesini Kapatan Fonksiyon
+window.closeKDrama = function(e) {
+    const modal = document.getElementById("kdrama-modal");
+    if (modal && (e.target.id === "kdrama-modal" || e.target.classList.contains("close-lightbox"))) {
+        modal.style.display = "none";
+    }
+};
+
+// Sayfa yüklendiğinde verileri çek
+document.addEventListener("DOMContentLoaded", () => {
+    loadUniverseData();
+});
+
 
 // Rastgele Kelime Fonksiyonu
 window.newRandomWord = function() {
