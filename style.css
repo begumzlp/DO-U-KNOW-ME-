@@ -16,15 +16,17 @@
     box-sizing:border-box;
     scroll-behavior:smooth;
 }
-
 body{
     font-family:'Poppins',sans-serif;
     background:
     radial-gradient(circle at top left,#8b5cf630,transparent 30%),
     radial-gradient(circle at bottom right,#ec489930,transparent 30%),
     #0b0815;
+
     color:var(--text);
     overflow-x:hidden;
+
+    min-height:100vh;
 }
 
 /* Scrollbar */
@@ -110,8 +112,9 @@ body{
 .hero h1{
     font-size:4rem;
     margin-bottom:20px;
+    font-weight:700;
+    letter-spacing:-2px;
     line-height:1.2;
-
     background:linear-gradient(
     135deg,
     #ffffff,
@@ -190,6 +193,9 @@ body{
     padding:30px;
 
     transition:.4s;
+    box-shadow:
+    0 8px 32px rgba(0,0,0,.2);
+    
 }
 
 .card:hover{
@@ -306,3 +312,9 @@ body::before{
 footer{
     margin-top:80px;
 }
+.nav-links li{
+    list-style:none;
+}
+
+.nav-links a{
+    white-space:
