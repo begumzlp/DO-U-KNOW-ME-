@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap');
 
 :root {
     --bg: #0b0815;
@@ -28,7 +28,65 @@ body {
     min-height: 100vh;
 }
 
-/* Sürpriz Kedicik (Easter Egg) Tasarımı */
+/* Gömülü Sistemler Terminal Penceresi Stili */
+.terminal-window {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #090612;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.terminal-header {
+    background: rgba(255,255,255,0.05);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.dot.red { background: #ef4444; }
+.dot.yellow { background: #f59e0b; }
+.dot.green { background: #10b981; }
+
+.terminal-title {
+    margin-left: 10px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+}
+
+.terminal-body {
+    padding: 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #a7f3d0;
+    line-height: 1.6;
+    background: rgba(5, 3, 10, 0.8);
+}
+
+.terminal-body p {
+    margin-bottom: 8px;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
 #surprise-cat {
     position: fixed;
     bottom: 20px;
@@ -49,7 +107,6 @@ body {
     transform: scale(1.2) rotate(10deg);
 }
 
-/* Teknik Yetenek Barları (Progress Bars) */
 .skill-box {
     margin-bottom: 20px;
 }
@@ -76,7 +133,6 @@ body {
     transition: width 1s ease-in-out;
 }
 
-/* İnteraktif Harita Modülü Butonları */
 .interactive-map-tags {
     display: flex;
     flex-wrap: wrap;
@@ -133,6 +189,24 @@ body {
     background: linear-gradient(90deg, #ffffff, #e9d5ff, #f9a8d4);
     -webkit-background-clip: text;
     color: transparent;
+}
+
+/* Hamburger İkonu Stili */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: 0.3s;
 }
 
 .nav-links {
@@ -298,19 +372,6 @@ body {
     cursor: default;
 }
 
-.circle-btn:hover {
-    transform: translateY(-5px);
-    border-color: var(--pink);
-    box-shadow: 0 10px 25px rgba(249, 168, 212, 0.3);
-    color: var(--pink);
-}
-
-body.pink-theme .circle-btn:hover {
-    border-color: #db2777;
-    color: #db2777;
-    box-shadow: 0 10px 25px rgba(219, 39, 119, 0.3);
-}
-
 .word-card {
     text-align: center;
     max-width: 600px;
@@ -371,17 +432,6 @@ body.pink-theme .circle-btn:hover {
     background: var(--purple);
     color: white;
     transform: scale(1.05);
-}
-
-body.pink-theme .refresh-btn {
-    background: rgba(219, 39, 119, 0.1);
-    border-color: #db2777;
-    color: #831843;
-}
-
-body.pink-theme .refresh-btn:hover {
-    background: #db2777;
-    color: white;
 }
 
 .travel-grid {
@@ -688,63 +738,6 @@ body.pink-theme .refresh-btn:hover {
     border-radius: 5px;
 }
 
-body.pink-theme {
-    --bg: #fdf2f8;
-    --card: rgba(255, 255, 255, 0.6);
-    --border: rgba(236, 72, 153, 0.2);
-    --text: #4a044e;
-    --text-soft: #831843;
-    background: radial-gradient(circle at top left, #fbcfe8 30%, transparent 70%),
-                radial-gradient(circle at bottom right, #f9a8d4 30%, transparent 70%),
-                #fdf2f8;
-}
-
-body.pink-theme .logo, body.pink-theme .hero h1 {
-    background: linear-gradient(135deg, #db2777, #9d174d);
-    -webkit-background-clip: text;
-}
-
-body.pink-theme .card h3 {
-    color: #be185d;
-}
-
-body.pink-theme .nav-links a {
-    color: #831843;
-}
-
-body.pink-theme .nav-links a:hover {
-    color: #db2777;
-}
-
-body.pink-theme .contact-link {
-    color: #db2777;
-}
-
-body.pink-theme .contact-link:hover {
-    color: #be185d;
-}
-
-body.pink-theme .download-btn {
-    border-color: #db2777;
-    color: #db2777;
-}
-
-body.pink-theme .download-btn:hover {
-    background: #db2777;
-    color: white;
-}
-
-body.pink-theme .album-btn {
-    background: rgba(219, 39, 119, 0.1);
-    border-color: #db2777;
-    color: #831843;
-}
-
-body.pink-theme .album-btn:hover {
-    background: #db2777;
-    color: white;
-}
-
 footer {
     text-align: center;
     padding: 40px;
@@ -765,15 +758,31 @@ body::before {
     pointer-events: none;
 }
 
+/* Mobil Ekranlar İçin Hamburger Menü Düzenlemesi */
 @media(max-width: 900px) {
-    .navbar {
-        flex-direction: column;
-        gap: 15px;
+    .hamburger {
+        display: flex;
     }
 
     .nav-links {
-        flex-wrap: wrap;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        height: 100vh;
+        background: rgba(11, 8, 21, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
+        gap: 20px;
+        transition: 0.4s ease-in-out;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        right: 0;
     }
 
     .hero h1 {
@@ -783,23 +792,4 @@ body::before {
     .section h2 {
         font-size: 2rem;
     }
-
-/* Detay Modalı Stilleri */
-#detail-modal-content img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin-bottom: 15px;
 }
-
-.drama-card-item {
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.drama-card-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--pink);
-}
-    
