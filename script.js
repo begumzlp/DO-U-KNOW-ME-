@@ -6,10 +6,10 @@ function showWelcome() {
     alert("Welcome to Miriy's Universe ✨");
 }
 
-// Easter Egg: Kedicik Efekti
-function meowEffect() {
+// Easter Egg: Kedicik Efekti (Global Scope)
+window.meowEffect = function() {
     alert("Meow! 🐾 Welcome to my secret corner, fellow cat lover! (Cats & Soup vibes 🐱🥣)");
-}
+};
 
 document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", function(e) {
