@@ -20,42 +20,6 @@ document.querySelectorAll(".nav-links a").forEach(link => {
     });
 });
 
-// Korece Günün Kelimesi
-const words = [
-    {
-        korean: "사랑",
-        meaning: "Love ❤️"
-    },
-    {
-        korean: "행복",
-        meaning: "Happiness 🌸"
-    },
-    {
-        korean: "꿈",
-        meaning: "Dream ✨"
-    },
-    {
-        korean: "친구",
-        meaning: "Friend 👭"
-    },
-    {
-        korean: "희망",
-        meaning: "Hope 🌙"
-    }
-];
-
-// Rastgele kelime seçimi
-const randomWord = words[Math.floor(Math.random() * words.length)];
-
-// HTML'deki elementleri bul ve metinleri değiştir
-const wordElement = document.getElementById("koreanWord");
-const meaningElement = document.getElementById("koreanMeaning");
-
-if (wordElement && meaningElement) {
-    wordElement.textContent = randomWord.korean;
-    meaningElement.textContent = randomWord.meaning;
-}
-
 // --- Lightbox (Galeri Fotoğraf Büyütme) ---
 function openLightbox(src) {
     const lightbox = document.getElementById("lightbox");
@@ -203,3 +167,51 @@ async function fetchKDramas() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchKDramas);
+
+let allWordsArray = [];
+
+// data.json dosyasından tüm verileri çekme
+async function loadUniverseData() {
+    try {
+        const response = await fetch("data.json");
+        if (!response.ok) throw new Error("JSON dosyası bulunamadı");
+        
+        const data = await response.json();
+        
+        // JSON içindeki tüm kategorileri tek bir listede birleştir
+        const allCategories = data.allWords;
+        for (let category in allCategories) {
+            allWordsArray = allWordsArray.concat(allCategories[category]);
+        }
+        
+        // Veriler yüklenir yüklenmez ilk kelimeyi ekrana getir
+        newRandomWord();
+
+        // NOT: İleride kdramaData, kpopData vs. için olan kodları da bu bloğa ekleyeceğiz!
+
+    } catch (error) {
+        console.error("Veri çekilemedi: ", error);
+        document.getElementById("koreanWord").textContent = "⚠️ Hata";
+        document.getElementById("koreanMeaning").textContent = "data.json dosyası bulunamadı!";
+    }
+}
+
+// Rastgele kelime seçip HTML'e yazdırma fonksiyonu
+function newRandomWord() {
+    if (allWordsArray.length === 0) return;
+    
+    // Yüzlerce kelimenin içinden rastgele birini seç
+    const randomWord = allWordsArray[Math.floor(Math.random() * allWordsArray.length)];
+    
+    // HTML'deki yerlerine yerleştir
+    document.getElementById("koreanWord").textContent = randomWord.korece;
+    document.getElementById("koreanPronunciation").textContent = "[" + randomWord.okunus + "]";
+    document.getElementById("koreanMeaning").textContent = randomWord.turkce;
+    
+    document.getElementById("koreanExample").textContent = randomWord.ornek;
+    document.getElementById("koreanExamplePronunciation").textContent = "[" + randomWord.ornekOkunus + "]";
+    document.getElementById("koreanExampleTr").textContent = randomWord.ornekTr;
+}
+
+// Sayfa açıldığında verileri yükle
+document.addEventListener("DOMContentLoaded", loadUniverseData);
