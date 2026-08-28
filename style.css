@@ -267,3 +267,42 @@ body::before{
         font-size:2rem;
     }
 }
+
+.stat-card{
+    text-align:center;
+}
+
+.stat-card h3{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.stat-card span{
+    display:block;
+    font-size:1.5rem;
+    color:#f9a8d4;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.card{
+    overflow:hidden;
+}
+
+.card:hover{
+    scale:1.03;
+}
+
+#koreanWord{
+    font-size:3rem;
+    margin-bottom:15px;
+    color:#f9a8d4;
+}
+
+#koreanMeaning{
+    font-size:1.2rem;
+}
+
+footer{
+    margin-top:80px;
+}
