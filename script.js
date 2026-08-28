@@ -171,7 +171,7 @@ window.newRandomWord = function() {
     if (exPronEl) exPronEl.textContent = "[" + randomWord.ornekOkunus + "]";
     if (exTrEl) exTrEl.textContent = randomWord.ornekTr;
 };
-
+// KDrama Modalını Açma ve Kartları Listeleme
 window.openKDramas = function() {
     const modal = document.getElementById("kdrama-modal");
     const grid = document.getElementById("drama-grid");
@@ -196,14 +196,15 @@ window.closeKDrama = function(e) {
     }
 };
 
+// Dizileri Ekrana Basma (Tıklama Özelliği Eklendi)
 function displayDramas(list) {
     const grid = document.getElementById("drama-grid");
     if (!grid) return;
     grid.innerHTML = "";
 
-    list.forEach(drama => {
+    list.forEach((drama, index) => {
         const card = document.createElement("div");
-        card.className = "card drama-item";
+        card.className = "card drama-card-item";
         card.style.padding = "15px";
         card.innerHTML = `
             <img src="${drama.afis}" alt="${drama.title}" style="width:100%; height:250px; object-fit:cover; border-radius: 10px; margin-bottom: 10px;">
@@ -211,17 +212,65 @@ function displayDramas(list) {
             <p style="color: var(--pink); font-size:0.9rem; font-weight: bold;">📅 ${drama.year} | 🎬 ${drama.episodes} Eps</p>
             <p style="font-size: 0.8rem; color: var(--text-soft); margin-top:5px;">👥 ${drama.cast}</p>
         `;
+        
+        // Karta tıklandığında Rich Data Modal açılır
+        card.onclick = () => openDetailModal(drama);
         grid.appendChild(card);
     });
 }
 
-window.filterDramas = function() {
+// 🌟 Rich Data Modal (Detay Penceresi) Açma
+function openDetailModal(drama) {
+    const modal = document.getElementById("detail-modal");
+    const content = document.getElementById("detail-modal-content");
+    
+    if (!modal || !content) return;
+
+    content.innerHTML = `
+        <img src="${drama.afis}" alt="${drama.title}">
+        <h2 style="color: var(--pink); margin-bottom: 10px;">${drama.title}</h2>
+        <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 10px;">Release Year: ${drama.year} | Episodes: ${drama.episodes}</p>
+        <p style="color: var(--text-soft); margin-bottom: 15px;"><b>Cast:</b> ${drama.cast}</p>
+        <p style="font-size: 0.95rem; line-height: 1.6; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
+            ✨ This is one of the selected masterpieces in Miriy's Universe drama archive. Enjoy the amazing storyline and unforgettable chemistry!
+        </p>
+    `;
+
+    modal.style.display = "flex";
+}
+
+// Detay Modalını Kapatma
+window.closeDetailModal = function(e) {
+    const modal = document.getElementById("detail-modal");
+    if (modal && (e.target.id === "detail-modal" || e.target.classList.contains("close-lightbox"))) {
+        modal.style.display = "none";
+    }
+};
+
+// Canlı Arama ve Filtreleme Fonksiyonu
+window.filterAndSortDramas = function() {
     const input = document.getElementById("dramaSearch").value.toLowerCase();
     const filtered = kdramaArray.filter(drama => 
         drama.title.toLowerCase().includes(input) || drama.cast.toLowerCase().includes(input)
     );
     displayDramas(filtered);
 };
+
+// Sıralama Algoritmaları (YENİ)
+window.sortDramas = function(criteria) {
+    let sorted = [...kdramaArray];
+    
+    if (criteria === 'newest') {
+        sorted.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+    } else if (criteria === 'title') {
+        sorted.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (criteria === 'episodes') {
+        sorted.sort((a, b) => parseInt(b.episodes) - parseInt(a.episodes));
+    }
+
+    displayDramas(sorted);
+};
+
 
 
 // ==========================================
