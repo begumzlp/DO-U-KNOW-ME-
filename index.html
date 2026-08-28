@@ -18,13 +18,16 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#cv">CV</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#volunteering">Volunteering</a></li>
+            <li><a href="#travel">Travel</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#languages">Languages</a></li>
             <li><a href="#dramas">Dramas</a></li>
             <li><a href="#hobbies">Hobbies</a></li>
             <li><a href="#dreams">Dreams</a></li>
+            <li><a href="#blog">Blog</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -48,6 +51,17 @@
         <p>I enjoy Web Development and Learning New Technologies.</p>
         <br>
         <p>Born in 2004 • Aries ♈</p>
+    </div>
+</section>
+
+<section id="cv" class="section">
+    <h2>📄 Curriculum Vitae</h2>
+    <div class="card" style="text-align: center;">
+        <h3>My Resume</h3>
+        <p>Aşağıdaki butona tıklayarak özgeçmişimi görüntüleyebilir veya indirebilirsiniz.</p>
+        <br>
+        <button onclick="openCV()" class="cv-btn">View CV 👁️</button>
+        <a href="cv.pdf" download class="cv-btn download-btn">Download CV ⬇️</a>
     </div>
 </section>
 
@@ -76,18 +90,51 @@
         </div>
     </div>
 </section>
+
+<section id="projects" class="section">
+    <h2>💻 My Projects & Experience</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>🚗 Automotive Software Intern</h3>
+            <span>August 2026</span>
+            <p>Embedded systems, CAN bus communication, and electronic I/O systems testing.</p>
+        </div>
+        <div class="card">
+            <h3>🏢 Teknopark Software Intern</h3>
+            <span>Summer 2025</span>
+            <p>Gained practical industry experience and contributed to software development projects during my summer internship.</p>
+        </div>
+        <div class="card">
+            <h3>♻️ Recycling Project</h3>
+            <p>A software project focused on environmental sustainability and recycling management.</p>
+        </div>
+        <div class="card">
+            <h3>📚 Library Database</h3>
+            <p>A comprehensive database management system designed for tracking and managing library operations.</p>
+        </div>
+        <div class="card">
+            <h3>🚜 Animal Farm Game</h3>
+            <p>An interactive and fun animal farm simulation game developed to practice programming logic.</p>
+        </div>
+        <div class="card">
+            <h3>🌐 Web Development Projects</h3>
+            <p>Various responsive frontend projects including Korean Miriy, Mirae Accessories, and a DIY Yarn Craft Website.</p>
+        </div>
+        <div class="card">
+            <h3>🌟 Sosyalfest Project</h3>
+            <p>Project development, organization, and community engagement for the Sosyalfest 2026 event.</p>
+        </div>
+    </div>
+</section>
+
 <section id="volunteering" class="section">
     <h2>🤝 Volunteering & Community</h2>
-    
     <div class="grid">
-        <!-- Kızılay Kartı -->
         <div class="card">
             <h3>🩸 Kızılay Volunteer</h3>
             <span>Active</span>
             <p>Participating in community support, relief organization, and social solidarity initiatives with the Turkish Red Crescent.</p>
         </div>
-
-        <!-- Sosyalfest Kartı -->
         <div class="card">
             <h3>🌟 Sosyalfest Community Volunteer</h3>
             <span>2026</span>
@@ -95,15 +142,49 @@
         </div>
     </div>
 </section>
+
+<section id="travel" class="section">
+    <h2>✈️ Travel Diary</h2>
+    <div class="travel-grid">
+        <div class="travel-card">
+            <div class="travel-img-container">
+                <img src="https://images.unsplash.com/photo-1595843491334-a0397554f7a7?w=600" alt="Balkan Tour">
+            </div>
+            <div class="travel-content">
+                <h3>🌍 Balkan Tour</h3>
+                <span>August 2026</span>
+                <p>Multi-country adventure and unforgettable memories with my sister MRY!</p>
+            </div>
+        </div>
+        <div class="travel-card">
+            <div class="travel-img-container">
+                <img src="https://images.unsplash.com/photo-1581452902341-35b91b93f1fa?w=600" alt="Alanya, Antalya">
+            </div>
+            <div class="travel-content">
+                <h3>🏖️ Alanya, Antalya</h3>
+                <span>August 2026</span>
+                <p>Exploring historical sites, castle views, and relaxing at beautiful cafes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="section">
+    <h2>🎨 Hobby Gallery</h2>
+    <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=500" alt="Miniature Room Craft" class="gallery-img" onclick="openLightbox(this.src)">
+        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500" alt="Pink Gel Nails" class="gallery-img" onclick="openLightbox(this.src)">
+        <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500" alt="Cats & Soup Gameplay" class="gallery-img" onclick="openLightbox(this.src)">
+    </div>
+</section>
+
 <section id="languages" class="section">
     <h2>🌏 Language Journey</h2>
-    
     <h2>🇰🇷 Korean Word of the Day</h2>
     <div class="card">
         <h3 id="koreanWord"></h3>
         <p id="koreanMeaning"></p>
     </div>
-
     <div class="grid">
         <div class="card">
             <h3>🇬🇧 English</h3>
@@ -119,27 +200,14 @@
 
 <section id="dramas" class="section">
     <h2>🎬 Drama Universe</h2>
-    
     <h2>🎬 Current Favorites</h2>
     <div class="grid">
-        <div class="card">
-            <h3>🏥 Tastefully Yours</h3>
-            <p>⭐ 10/10</p>
-        </div>
-        <div class="card">
-            <h3>💕 Crash Landing On You</h3>
-            <p>⭐ 10/10</p>
-        </div>
-        <div class="card">
-            <h3>⚖️ Extraordinary Attorney Woo</h3>
-            <p>⭐ 9.5/10</p>
-        </div>
-        <div class="card">
-            <h3>🏥 Goblin</h3>
-            <p>⭐ 9.5/10</p>
-        </div>
+        <div class="card"><h3>🏥 Tastefully Yours</h3><p>⭐ 10/10</p></div>
+        <div class="card"><h3>💕 Crash Landing On You</h3><p>⭐ 10/10</p></div>
+        <div class="card"><h3>⚖️ Extraordinary Attorney Woo</h3><p>⭐ 9.5/10</p></div>
+        <div class="card"><h3>🏥 Goblin</h3><p>⭐ 9.5/10</p></div>
     </div>
-
+    <br>
     <div class="grid">
         <div class="card"><h3>🇰🇷 Korean Dramas</h3></div>
         <div class="card"><h3>🇨🇳 Chinese Dramas</h3></div>
@@ -153,22 +221,10 @@
 <section id="hobbies" class="section">
     <h2>🧩 Hobby Zone</h2>
     <div class="grid">
-        <div class="card">
-            <h3>🧩 Puzzle</h3>
-            <p>I love solving puzzles and challenging my brain.</p>
-        </div>
-        <div class="card">
-            <h3>🏊 Swimming</h3>
-            <p>Swimming helps me relax and recharge.</p>
-        </div>
-        <div class="card">
-            <h3>🃏 Playing 101</h3>
-            <p>One of my favorite games with friends.</p>
-        </div>
-        <div class="card">
-            <h3>🎬 Drama Marathons</h3>
-            <p>Korean, Chinese, Japanese and Thai dramas.</p>
-        </div> 
+        <div class="card"><h3>🧩 Puzzle</h3><p>I love solving puzzles and challenging my brain.</p></div>
+        <div class="card"><h3>🏊 Swimming</h3><p>Swimming helps me relax and recharge.</p></div>
+        <div class="card"><h3>🃏 Playing 101</h3><p>One of my favorite games with friends.</p></div>
+        <div class="card"><h3>🎬 Drama Marathons</h3><p>Korean, Chinese, Japanese and Thai dramas.</p></div> 
     </div>
 </section>
 
@@ -197,49 +253,52 @@
 <section id="blog" class="section">
     <h2>📝 Blog</h2>
     <div class="grid">
-        <div class="card">
-            <h3>🚗 My Internship Journey</h3>
-            <p>Experiences and lessons from my internship.</p>
-        </div>
-        <div class="card">
-            <h3>🇰🇷 Why I Started Learning Korean</h3>
-            <p>My language learning story.</p>
-        </div>
-        <div class="card">
-            <h3>💻 Building My First Website</h3>
-            <p>The story behind Miriy's Universe.</p>
-        </div>
-        <div class="card">
-            <h3>🎬 Best Medical Dramas</h3>
-            <p>My favorite hospital series.</p>
-        </div>
+        <div class="card"><h3>🚗 My Internship Journey</h3><p>Experiences and lessons from my internship.</p></div>
+        <div class="card"><h3>🇰🇷 Why I Started Learning Korean</h3><p>My language learning story.</p></div>
+        <div class="card"><h3>💻 Building My First Website</h3><p>The story behind Miriy's Universe.</p></div>
+        <div class="card"><h3>🎬 Best Medical Dramas</h3><p>My favorite hospital series.</p></div>
     </div>
 </section>
-   <section id="contact" class="section">
+
+<section id="contact" class="section">
     <h2>📬 Contact & Links</h2>
-    
     <div class="grid">
-        <!-- Sosyal Medya ve İletişim Kartı -->
         <div class="card">
             <h3>💬 Connect with me</h3>
             <br>
-            <p>📸 Instagram: <a href="https://instagram.com/begumzlp" target="_blank" class="contact-link">@kullanici_adin</a></p>
+            <p>📸 Instagram: <a href="https://instagram.com/begumzlp" target="_blank" class="contact-link">@begumzlp</a></p>
             <p>🐙 GitHub: <a href="https://github.com/begumzlp" target="_blank" class="contact-link">github.com/begumzlp</a></p>
             <p>💼 LinkedIn: <a href="https://linkedin.com/in/begumzlp" target="_blank" class="contact-link">linkedin.com/in/begumzlp</a></p>
             <p>📧 Email: <a href="mailto:bgmiray04@gmail.com" class="contact-link">bgmiray04@gmail.com</a></p>
         </div>
-
-        <!-- Diğer Sitelerim Kartı -->
         <div class="card">
             <h3>🌐 My Other Websites</h3>
             <br>
-            <p>💻<a href="https://begumzlp.github.io/KoreanMry/" target="_blank" class="contact-link">Korean Miriy</a></p>
-            <p>🚗<a href="https://begumzlp.github.io/MIRAE-ACCESSORIES/" target="_blank" class="contact-link">Mirae Accessories </a></p>
-            <p>🌸<a href="https://begumzlp.github.io/hilalzeynep-website/#" target="_blank" class="contact-link">DIY Craft Website</a></p>
+            <p>💻 <a href="https://begumzlp.github.io/KoreanMry/" target="_blank" class="contact-link">Korean Miriy</a></p>
+            <p>🚗 <a href="https://begumzlp.github.io/MIRAE-ACCESSORIES/" target="_blank" class="contact-link">Mirae Accessories</a></p>
+            <p>🌸 <a href="https://begumzlp.github.io/hilalzeynep-website/#" target="_blank" class="contact-link">DIY Craft Website</a></p>
         </div>
     </div>
-</section>     
+</section>       
 
+<!-- Floating Buttons -->
+<button id="themeToggle" class="floating-btn theme-btn" title="Temayı Değiştir">🌸</button>
+<button id="backToTop" class="floating-btn top-btn" title="Yukarı Çık">⬆️</button>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-lightbox">&times;</span>
+    <img id="lightbox-img" src="" alt="Expanded Image">
+</div>
+
+<!-- CV Modal -->
+<div id="cv-modal" class="lightbox" onclick="closeCV(event)">
+    <span class="close-lightbox" onclick="closeCV(event)">&times;</span>
+    <div class="cv-container">
+        <!-- cv.pdf dosyanı projenin ana klasörüne eklemelisin -->
+        <iframe src="cv.pdf" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+</div>
 
 <footer>
     <p>✨ Miriy's Universe © 2026</p>
