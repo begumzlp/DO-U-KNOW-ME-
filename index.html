@@ -7,10 +7,11 @@
     <meta name="description" content="Software Engineering Student • Languages • Asian Dramas • Projects • Personal Journey">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/2728.png">
+    <!-- Canvas Confetti Kütüphanesi (Beğeni butonu için) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-<!-- Easter Egg: Sürpriz Kedicik -->
 <div id="surprise-cat" onclick="meowEffect()" title="Meow! 🐾">🐱</div>
 
 <header>
@@ -18,20 +19,28 @@
         <div class="logo">
             ✨ Miriy's Universe
         </div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#cv">CV</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#volunteering">Volunteering</a></li>
-            <li><a href="#travel">Travel</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#languages">Languages</a></li>
-            <li><a href="#dramas">Dramas</a></li>
-            <li><a href="#hobbies">Hobbies</a></li>
-            <li><a href="#dreams">Dreams</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Contact</a></li>
+        
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+            <li><a href="#about" onclick="toggleMenu()">About</a></li>
+            <li><a href="#cv" onclick="toggleMenu()">CV</a></li>
+            <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+            <li><a href="#volunteering" onclick="toggleMenu()">Volunteering</a></li>
+            <li><a href="#travel" onclick="toggleMenu()">Travel</a></li>
+            <li><a href="#gallery" onclick="toggleMenu()">Gallery</a></li>
+            <li><a href="#languages" onclick="toggleMenu()">Languages</a></li>
+            <li><a href="#dramas" onclick="toggleMenu()">Dramas</a></li>
+            <li><a href="#cats-soup" onclick="toggleMenu()">Cats & Soup</a></li>
+            <li><a href="#hobbies" onclick="toggleMenu()">Hobbies</a></li>
+            <li><a href="#dreams" onclick="toggleMenu()">Dreams</a></li>
+            <li><a href="#blog" onclick="toggleMenu()">Blog</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
         </ul>
     </nav>
 </header>
@@ -86,7 +95,6 @@
     </div>
 </section>
 
-<!-- Yeni Özellik: Teknik Yetenek Barları -->
 <section id="skills" class="section">
     <h2>⚡ Technical Skills</h2>
     <p style="text-align: center; color: var(--text-soft); margin-bottom: 40px;">
@@ -112,6 +120,29 @@
         <div class="skill-box">
             <span class="skill-title">English (B1) & Korean (Learning)</span>
             <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 70%;"></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Yeni Özellik: Gömülü Sistemler Terminal Log Paneli -->
+<section id="terminal-logs" class="section">
+    <h2>💻 Embedded & Automotive Test Logs</h2>
+    <p style="text-align: center; color: var(--text-soft); margin-bottom: 30px;">
+        Live simulation logs from my engineering internship and software testing tasks.
+    </p>
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">miriy@embedded-station:~ (CAN Bus Active)</span>
+        </div>
+        <div class="terminal-body" id="terminal-content">
+            <p>> Initializing safety orientation logs (İş Sağlığı ve Güvenliği)... [OK]</p>
+            <p>> Connecting to vehicle network interface... [CONNECTED]</p>
+            <p>> Listening to CAN bus message packets (ID: 0x12A)... [DATA_STREAM_ON]</p>
+            <p>> Testing electronic input/output (I/O) systems... [PASSED]</p>
+            <p class="blink">> Ready for next diagnostic command..._</p>
         </div>
     </div>
 </section>
@@ -173,7 +204,6 @@
 <section id="travel" class="section">
     <h2>✈️ Travel Diary</h2>
     
-    <!-- Yeni Özellik: İnteraktif Harita Modülü -->
     <div class="card" style="max-width: 900px; margin: 0 auto 40px auto; text-align: center;">
         <h3>🗺️ Interactive Exploration Map</h3>
         <p style="color: var(--text-soft); margin-bottom: 20px; font-size: 0.95rem;">Click a region tag below to instantly jump to its photo album!</p>
@@ -296,6 +326,30 @@
     </div>
 </section>
 
+<section id="cats-soup" class="section">
+    <h2>🐱 Cats & Soup Sanctuary</h2>
+    <p style="text-align: center; color: var(--text-soft); margin-bottom: 30px;">
+        My cozy little virtual forest where 199 cats brew soup, chop carrots, and bake pastries! 🥣
+    </p>
+    <div class="grid">
+        <div class="card" style="text-align: center;">
+            <h3 style="font-size: 2.5rem; margin-bottom: 10px;">🍲</h3>
+            <h3>Soup & Cooking Facilities</h3>
+            <p>Endless soup boiling, juice squeezing, and barbecue stations managed by the hard-working forest kitties.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <h3 style="font-size: 2.5rem; margin-bottom: 10px;">🐾</h3>
+            <h3>199 Cats & Expansion</h3>
+            <p>Reaching 199 cats, unlocking maximum facility storage, and expanding the map to new cozy forest areas.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <h3 style="font-size: 2.5rem; margin-bottom: 10px;">👒</h3>
+            <h3>Costumes & Mini-Rooms</h3>
+            <p>Dressing up cats in cute hats, accessories, and designing their tiny rooms with lovely furniture.</p>
+        </div>
+    </div>
+</section>
+
 <section id="hobbies" class="section">
     <h2>🧩 Hobby Zone</h2>
     <div class="grid">
@@ -318,13 +372,13 @@
     </div>
     
     <br><br>
-    <h2>🎧 Currently Listening</h2>
-    <div class="music-player">
-        <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=200" alt="Brand New" class="album-cover">
+    <h2>🎧 Live Now Playing (Last.fm API)</h2>
+    <div class="music-player" id="live-music-player">
+        <img id="track-art" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=200" alt="Album Art" class="album-cover">
         <div class="music-info">
-            <h3>Brand New</h3>
-            <p>Xiumin (EXO)</p>
-            <div class="progress-bar"><div class="progress"></div></div>
+            <h3 id="track-name">Brand New</h3>
+            <p id="artist-name">Xiumin (EXO)</p>
+            <div class="progress-bar"><div class="progress" style="width: 100%;"></div></div>
         </div>
     </div>
 </section>
@@ -371,6 +425,13 @@
             <p>🌸 <a href="https://begumzlp.github.io/hilalzeynep-website/#" target="_blank" class="contact-link">DIY Craft Website</a></p>
         </div>
     </div>
+    
+    <!-- Yeni Özellik: Konfetili Beğeni Butonu (Appreciate / Leave a Like) -->
+    <div style="text-align: center; margin-top: 40px;">
+        <button onclick="triggerConfetti()" class="cv-btn" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">
+            ✨ Appreciate This Universe (<span id="like-count">142</span> Likes)
+        </button>
+    </div>
 </section>        
 
 <button id="themeToggle" class="floating-btn theme-btn" title="Change Theme">🌸</button>
@@ -388,32 +449,24 @@
     </div>
 </div>
 
-<!-- KDrama Library Modal (Gelişmiş Filtreli) -->
 <div id="kdrama-modal" class="lightbox" onclick="closeKDrama(event)">
     <span class="close-lightbox" onclick="closeKDrama(event)">&times;</span>
     <div class="kdrama-container" id="kdrama-content">
-        
-        <!-- Üst Arama ve Filtreleme Paneli -->
         <div style="grid-column: 1 / -1; margin-bottom: 20px; text-align: center;">
             <input type="text" id="dramaSearch" placeholder="🔍 Search by title or cast..." onkeyup="filterAndSortDramas()" style="width: 100%; max-width: 400px; padding: 12px 20px; border-radius: 25px; border: 1px solid var(--border); background: var(--card); color: var(--text); outline: none; font-family: 'Poppins', sans-serif; margin-bottom: 15px;">
-            
-            <!-- Sıralama / Filtre Butonları -->
             <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
                 <button class="map-tag-btn" onclick="sortDramas('newest')">📅 Newest First</button>
                 <button class="map-tag-btn" onclick="sortDramas('title')">🔤 Alphabetical</button>
                 <button class="map-tag-btn" onclick="sortDramas('episodes')">🎬 Longest (Eps)</button>
             </div>
         </div>
-
         <div id="drama-grid" style="display: contents;"></div>
     </div>
 </div>
 
-<!-- Detay Modalı (Rich Data Modal) -->
 <div id="detail-modal" class="lightbox" onclick="closeDetailModal(event)">
     <span class="close-lightbox" onclick="closeDetailModal(event)">&times;</span>
     <div class="card" style="max-width: 500px; width: 90%; margin: auto; position: relative; text-align: center; z-index: 2002;" id="detail-modal-content">
-        <!-- Detaylar JS ile buraya dolacak -->
     </div>
 </div>
 
