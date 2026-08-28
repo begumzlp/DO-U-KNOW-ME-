@@ -675,3 +675,41 @@ body.pink-theme .refresh-btn:hover {
     background: #db2777;
     color: white;
 }
+/* Stars of My Universe - İsim Etiketleri */
+.circle-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.circle-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    cursor: default; /* Tıklanabilir olmadığını belli eder */
+}
+
+.circle-btn:hover {
+    transform: translateY(-5px);
+    border-color: var(--pink);
+    box-shadow: 0 10px 25px rgba(249, 168, 212, 0.3);
+    color: var(--pink);
+}
+
+body.pink-theme .circle-btn:hover {
+    border-color: #db2777;
+    color: #db2777;
+    box-shadow: 0 10px 25px rgba(219, 39, 119, 0.3);
+}
