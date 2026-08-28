@@ -601,3 +601,77 @@ body::before {
         font-size: 2rem;
     }
 }
+
+/* Günün Kelimesi Kartı Özel Tasarımı */
+.word-card {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#koreanWord {
+    font-size: 3.5rem;
+    color: var(--pink);
+    margin-bottom: 5px;
+}
+
+.pronunciation {
+    font-style: italic;
+    color: var(--purple);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.meaning {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.word-divider {
+    border: 0;
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+}
+
+.example {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #f5d0fe;
+    margin-bottom: 5px;
+}
+
+.meaning-soft {
+    color: var(--text-soft);
+    font-size: 1rem;
+}
+
+.refresh-btn {
+    margin-top: 25px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    background: rgba(192, 132, 252, 0.15);
+    border: 1px solid var(--purple);
+    color: var(--text);
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.refresh-btn:hover {
+    background: var(--purple);
+    color: white;
+    transform: scale(1.05);
+}
+
+body.pink-theme .refresh-btn {
+    background: rgba(219, 39, 119, 0.1);
+    border-color: #db2777;
+    color: #831843;
+}
+
+body.pink-theme .refresh-btn:hover {
+    background: #db2777;
+    color: white;
+}
