@@ -388,13 +388,32 @@
     </div>
 </div>
 
+<!-- KDrama Library Modal (Gelişmiş Filtreli) -->
 <div id="kdrama-modal" class="lightbox" onclick="closeKDrama(event)">
     <span class="close-lightbox" onclick="closeKDrama(event)">&times;</span>
     <div class="kdrama-container" id="kdrama-content">
-        <div style="grid-column: 1 / -1; margin-bottom: 10px; text-align: center;">
-            <input type="text" id="dramaSearch" placeholder="🔍 Search dramas by title or cast..." onkeyup="filterDramas()" style="width: 100%; max-width: 400px; padding: 12px 20px; border-radius: 25px; border: 1px solid var(--border); background: var(--card); color: var(--text); outline: none; font-family: 'Poppins', sans-serif;">
+        
+        <!-- Üst Arama ve Filtreleme Paneli -->
+        <div style="grid-column: 1 / -1; margin-bottom: 20px; text-align: center;">
+            <input type="text" id="dramaSearch" placeholder="🔍 Search by title or cast..." onkeyup="filterAndSortDramas()" style="width: 100%; max-width: 400px; padding: 12px 20px; border-radius: 25px; border: 1px solid var(--border); background: var(--card); color: var(--text); outline: none; font-family: 'Poppins', sans-serif; margin-bottom: 15px;">
+            
+            <!-- Sıralama / Filtre Butonları -->
+            <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                <button class="map-tag-btn" onclick="sortDramas('newest')">📅 Newest First</button>
+                <button class="map-tag-btn" onclick="sortDramas('title')">🔤 Alphabetical</button>
+                <button class="map-tag-btn" onclick="sortDramas('episodes')">🎬 Longest (Eps)</button>
+            </div>
         </div>
+
         <div id="drama-grid" style="display: contents;"></div>
+    </div>
+</div>
+
+<!-- Detay Modalı (Rich Data Modal) -->
+<div id="detail-modal" class="lightbox" onclick="closeDetailModal(event)">
+    <span class="close-lightbox" onclick="closeDetailModal(event)">&times;</span>
+    <div class="card" style="max-width: 500px; width: 90%; margin: auto; position: relative; text-align: center; z-index: 2002;" id="detail-modal-content">
+        <!-- Detaylar JS ile buraya dolacak -->
     </div>
 </div>
 
