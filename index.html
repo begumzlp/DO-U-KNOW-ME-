@@ -142,10 +142,11 @@
         </div>
     </div>
 </section>
-
 <section id="travel" class="section">
     <h2>✈️ Travel Diary</h2>
     <div class="travel-grid">
+        
+        <!-- Balkan Turu Kartı -->
         <div class="travel-card">
             <div class="travel-img-container">
                 <img src="https://images.unsplash.com/photo-1595843491334-a0397554f7a7?w=600" alt="Balkan Tour">
@@ -153,19 +154,39 @@
             <div class="travel-content">
                 <h3>🌍 Balkan Tour</h3>
                 <span>August 2026</span>
-                <p>Multi-country adventure and unforgettable memories with my sister MRY!</p>
+                <p>Multi-country adventure and unforgettable memories with my sister MRY! <b>Fotoğrafları görmek için bir ülkeye tıkla:</b></p>
+                <div class="album-tags">
+                    <button class="album-btn" onclick="openAlbum('makedonya')">🇲🇰 Makedonya</button>
+                    <button class="album-btn" onclick="openAlbum('sirbistan')">🇷🇸 Sırbistan</button>
+                    <button class="album-btn" onclick="openAlbum('karadag')">🇲🇪 Karadağ</button>
+                    <button class="album-btn" onclick="openAlbum('bosna')">🇧🇦 Bosna Hersek</button>
+                    <button class="album-btn" onclick="openAlbum('kosova')">🇽🇰 Kosova</button>
+                    <button class="album-btn" onclick="openAlbum('arnavutluk')">🇦🇱 Arnavutluk</button>
+                </div>
             </div>
         </div>
+
+        <!-- Türkiye Kartı -->
         <div class="travel-card">
             <div class="travel-img-container">
-                <img src="https://images.unsplash.com/photo-1581452902341-35b91b93f1fa?w=600" alt="Alanya, Antalya">
+                <img src="https://images.unsplash.com/photo-1581452902341-35b91b93f1fa?w=600" alt="Türkiye Seyahatleri">
             </div>
             <div class="travel-content">
-                <h3>🏖️ Alanya, Antalya</h3>
-                <span>August 2026</span>
-                <p>Exploring historical sites, castle views, and relaxing at beautiful cafes.</p>
+                <h3>🏖️ Türkiye Seyahatleri</h3>
+                <span>Local Adventures</span>
+                <p>Exploring historical sites, coastal views, and everyday life across beautiful cities.</p>
+                <div class="album-tags">
+                    <button class="album-btn" onclick="openAlbum('antalya')">📍 Antalya</button>
+                    <button class="album-btn" onclick="openAlbum('aydin')">📍 Aydın</button>
+                    <button class="album-btn" onclick="openAlbum('karabuk')">📍 Karabük</button>
+                    <button class="album-btn" onclick="openAlbum('bartin')">📍 Bartın</button>
+                    <button class="album-btn" onclick="openAlbum('istanbul')">📍 İstanbul</button>
+                    <button class="album-btn" onclick="openAlbum('balikesir')">📍 Balıkesir</button>
+                    <button class="album-btn" onclick="openAlbum('zonguldak')">📍 Zonguldak</button>
+                </div>
             </div>
         </div>
+
     </div>
 </section>
 
