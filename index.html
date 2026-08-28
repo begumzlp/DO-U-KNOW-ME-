@@ -201,11 +201,24 @@
 
 <section id="languages" class="section">
     <h2>🌏 Language Journey</h2>
-    <h2>🇰🇷 Korean Word of the Day</h2>
-    <div class="card">
-        <h3 id="koreanWord"></h3>
-        <p id="koreanMeaning"></p>
+    
+    <h2>🇰🇷 Random Word of the Day</h2>
+    <div class="card word-card">
+        <h3 id="koreanWord">단어</h3>
+        <p id="koreanPronunciation" class="pronunciation"></p>
+        <p id="koreanMeaning" class="meaning"></p>
+        
+        <hr class="word-divider">
+        
+        <p id="koreanExample" class="example"></p>
+        <p id="koreanExamplePronunciation" class="pronunciation"></p>
+        <p id="koreanExampleTr" class="meaning-soft"></p>
+        
+        <button onclick="newRandomWord()" class="refresh-btn">🔄 Yeni Kelime</button>
     </div>
+
+    <br><br>
+
     <div class="grid">
         <div class="card">
             <h3>🇬🇧 English</h3>
